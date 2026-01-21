@@ -1,0 +1,11 @@
+{
+  "TSX Function Component": {
+    "prefix": "tsxfc",
+    "body": [
+      "export function ${1:ComponentName}() {",
+      "  return <${2:div}>${3:{/* $1 content */}}</${2:div}>;",
+      "}"
+    ],
+    "description": "TSX function component export (Next.js pattern)"
+  }
+}

@@ -4,10 +4,8 @@ import remarkGfm from "remark-gfm";
 
 export function MarkdownRenderer({ markdown }: { markdown: string }) {
   return (
-    <div className="prose prose-neutral max-w-none">
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>
-        {markdown}
-      </ReactMarkdown>
+    <div className="prose prose-neutral max-w-none break-words">
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdown}</ReactMarkdown>
     </div>
   );
 }

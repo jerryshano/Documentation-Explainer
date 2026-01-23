@@ -18,8 +18,7 @@ interface InputPanelProps {
 
 export default function InputPanel({ onExplain, status }: InputPanelProps) {
   const isLoading = status === "loading";
-  const isSuccess = status === "success";
-  const isError = status === "error";
+
   return (
     <Card className="w-full max-w-3xl overflow-hidden">
       <CardHeader className="pb-2">
@@ -39,7 +38,7 @@ export default function InputPanel({ onExplain, status }: InputPanelProps) {
         <CardContent className="space-y-6 py-3">
           <Input type="file" />
           <Textarea
-            className="min-h-[500px] mt-3"
+            className="min-h-[600px] mt-3"
             placeholder="Paste your text here"
           />
           <Input

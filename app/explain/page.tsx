@@ -57,7 +57,7 @@ export default function ExplainPage() {
 
   return (
     <div className="h-screen flex w-full">
-      <div className="w-full h-full max-w-7xl mx-auto">
+      <div className="w-full h-full max-w-7xl mx-auto p-3">
         <MainWorkspace>
           <InputPanel onExplain={handleExplain} status={status} />
           <OutputPanel

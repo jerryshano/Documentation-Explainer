@@ -9,7 +9,7 @@ export function MainWorkspace({ children }: { children: React.ReactNode }) {
       w-full
       max-w-7xl
       mx-auto
-      h-full
+      h-[calc(100vh-100px)]
       items-stretch
       overflow-hidden
       min-h-0

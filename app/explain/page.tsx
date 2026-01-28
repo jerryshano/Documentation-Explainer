@@ -16,6 +16,18 @@ export default function ExplainPage() {
   const [followUps, setFollowUps] = useState<FollowUp[]>([]);
   const [isFollowUpLoading, setIsFollowUpLoading] = useState<boolean>(false);
 
+  const handleExplain = async () => {
+    const res = await fetch("/api/explain", {
+    method: "POST",
+    body: JSON.stringify({
+      input: text,
+      level,
+    }),
+  });
+  const data = await res.json();
+  setResult(data.result);
+  setStatus("success");
+
   const handleExplain = () => {
     setStatus("loading");
     setTimeout(() => {

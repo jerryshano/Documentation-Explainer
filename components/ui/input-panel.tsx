@@ -25,7 +25,7 @@ export default function InputPanel({ onExplain, status }: InputPanelProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   return (
-    <Card className="w-full max-w-3xl overflow-hidden">
+    <Card className="w-full max-w-3xl h-full">
       <CardHeader className="pb-2">
         <CardTitle className="text-4xl font-bold tracking-tight">
           Input Panel
@@ -47,7 +47,7 @@ export default function InputPanel({ onExplain, status }: InputPanelProps) {
             // onChange={(e) => setFile(e.target.value)}
           />
           <Textarea
-            className="min-h-[600px] mt-3"
+            className="min-h-[500px] mt-3"
             placeholder="Paste your text here"
             value={input}
             onChange={(e) => setInput(e.target.value)}

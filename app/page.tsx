@@ -14,13 +14,19 @@ export default function Home() {
   const [result, setResult] = useState<string>("");
   const [followUps, setFollowUps] = useState<FollowUp[]>([]);
   const [isFollowUpLoading, setIsFollowUpLoading] = useState<boolean>(false);
+  const [mode, setMode] = useState("tl:dr");
+  const [input, setInput] = useState("");
+  const [url, setUrl] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleExplain = async () => {
     setStatus("loading");
     try {
       const res = await fetch("/api", {
         method: "POST",
-        body: JSON.stringify({ input: "", level: "tl:dr" }),
+        body: JSON.stringify({ input: input, level: mode }),
       });
       const data = await res.json();
       setResult(data.result ?? "");
@@ -58,7 +64,18 @@ export default function Home() {
     <div className="min-h-screen">
       <MainWorkspace>
         {/* <ExplainPage /> */}
-        <InputPanel onExplain={handleExplain} status={status} />
+        <InputPanel
+          onExplain={handleExplain}
+          status={status}
+          input={input}
+          setInput={setInput}
+          url={url}
+          setUrl={setUrl}
+          mode={mode}
+          setMode={setMode}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+        />
         <OutputPanel
           status={status}
           result={result}

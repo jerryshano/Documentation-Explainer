@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import {
   Card,
   CardContent,
@@ -11,19 +11,32 @@ import { Tabs, TabsList, TabsTrigger } from "./tabs";
 import { Textarea } from "./textarea";
 import { Input } from "./input";
 import { Button } from "./button";
-import { useState } from "react";
 
 interface InputPanelProps {
   onExplain: () => void;
   status: "idle" | "loading" | "success" | "error";
+  input: string;
+  setInput: (input: string) => void;
+  url: string;
+  setUrl: (url: string) => void;
+  mode: string;
+  setMode: (mode: string) => void;
+  isLoading: boolean;
+  setIsLoading: (isLoading: boolean) => void;
 }
 
-export default function InputPanel({ onExplain, status }: InputPanelProps) {
-  const [input, setInput] = useState("");
-  const [url, setUrl] = useState("");
-  const [mode, setMode] = useState("tl:dr");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+export default function InputPanel({
+  onExplain,
+  status,
+  input,
+  setInput,
+  url,
+  setUrl,
+  mode,
+  setMode,
+  isLoading,
+  setIsLoading,
+}: InputPanelProps) {
   return (
     <Card className="w-full max-w-3xl h-full">
       <CardHeader className="pb-2">

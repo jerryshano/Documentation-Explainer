@@ -11,6 +11,7 @@ const ratelimit = new Ratelimit({
 
 export async function POST(req: Request) {
   try {
+    // rate limiting
     const identifier = req.headers.get("x-forwarded-for") || "unknown";
     console.log("identifier", identifier);
     if (!identifier) {
@@ -21,9 +22,11 @@ export async function POST(req: Request) {
     if (!success) {
       return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
+    // get the request body
     const { input, mode = "explain" } = (await req.json()) as ExplainRequest;
 
     if (!input || typeof input !== "string") {
+      console.error("Invalid input logged", input);
       return NextResponse.json<ExplainResponse>(
         { error: "Invalid input" },
         { status: 400 }

@@ -1,4 +1,3 @@
-// "use client";
 import {
   Card,
   CardContent,
@@ -11,31 +10,26 @@ import { Tabs, TabsList, TabsTrigger } from "./tabs";
 import { Textarea } from "./textarea";
 import { Input } from "./input";
 import { Button } from "./button";
+import { Level } from "@/app/types";
 
 interface InputPanelProps {
   onExplain: () => void;
-  status: "idle" | "loading" | "success" | "error";
   input: string;
   setInput: (input: string) => void;
   url: string;
   setUrl: (url: string) => void;
-  mode: string;
-  setMode: (mode: string) => void;
+  setLevel: (level: Level) => void;
   isLoading: boolean;
-  setIsLoading: (isLoading: boolean) => void;
 }
 
 export default function InputPanel({
   onExplain,
-  status,
   input,
   setInput,
   url,
   setUrl,
-  mode,
-  setMode,
+  setLevel,
   isLoading,
-  setIsLoading,
 }: InputPanelProps) {
   return (
     <Card className="w-full max-w-3xl h-full">
@@ -77,28 +71,28 @@ export default function InputPanel({
               <TabsTrigger
                 className="text-xl font-medium"
                 value="tl:dr"
-                onClick={() => setMode("tl:dr")}
+                onClick={() => setLevel("tl:dr")}
               >
                 TL:DR
               </TabsTrigger>
               <TabsTrigger
                 className="text-xl font-medium"
                 value="beginner"
-                onClick={() => setMode("beginner")}
+                onClick={() => setLevel("beginner")}
               >
                 Beginner
               </TabsTrigger>
               <TabsTrigger
                 className="text-xl font-medium"
                 value="intermediate"
-                onClick={() => setMode("intermediate")}
+                onClick={() => setLevel("intermediate")}
               >
                 Intermediate
               </TabsTrigger>
               <TabsTrigger
                 className="text-xl font-medium"
                 value="advanced"
-                onClick={() => setMode("advanced")}
+                onClick={() => setLevel("advanced")}
               >
                 Advanced
               </TabsTrigger>

@@ -9,6 +9,13 @@ const ratelimit = new Ratelimit({
   limiter: Ratelimit.fixedWindow(10, "1 m"),
 });
 
+const levelPrompts = {
+  "tl:dr": "Explain this in a concise and easy to understand way.",
+  beginner: "Explain this like I am new to programming.",
+  intermediate: "Explain this with some technical depth.",
+  advanced: "Explain this at an expert engineering level.",
+};
+
 export async function POST(req: Request) {
   try {
     // rate limiting
@@ -23,7 +30,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
     // get the request body
-    const { input, mode = "explain" } = (await req.json()) as ExplainRequest;
+    const {
+      input,
+      mode = "explain",
+      level = "tl:dr",
+    } = (await req.json()) as ExplainRequest;
 
     if (!input || typeof input !== "string") {
       console.error("Invalid input logged", input);
@@ -34,9 +45,9 @@ export async function POST(req: Request) {
     }
 
     const prompt =
-      mode === "followup"
-        ? `Answer this follow-up question based on the previous explanation:\n\n${input}`
-        : `Explain the following documentation clearly and concisely:\n\n${input}`;
+      mode === "explain"
+        ? `${levelPrompts[level]}\n\n${input}`
+        : `${levelPrompts[level]}\n\n${input}`;
 
     const response = await openai.responses.create({
       model: "gpt-5-nano",

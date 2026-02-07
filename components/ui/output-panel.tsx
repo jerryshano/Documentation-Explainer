@@ -13,15 +13,9 @@ import { ScrollArea } from "./scroll-area";
 import { Skeleton } from "./skeleton";
 import { Textarea } from "./textarea";
 
-interface FollowUp {
-  question: string;
-  answer: string;
-}
-
 interface OutputPanelProps {
   isFollowUpLoading: boolean;
-  followUps: FollowUp[];
-  onFollowUp: (question: string) => void;
+  handleFollowUp: () => void;
   status: "idle" | "loading" | "success" | "error";
   result: string;
 }
@@ -29,9 +23,8 @@ interface OutputPanelProps {
 export function OutputPanel({
   status,
   result,
-  followUps,
   isFollowUpLoading,
-  onFollowUp,
+  handleFollowUp,
 }: OutputPanelProps) {
   const [question, setQuestion] = useState("");
 
@@ -98,7 +91,7 @@ export function OutputPanel({
           <Button
             size="lg"
             disabled={!question || isFollowUpLoading}
-            onClick={() => onFollowUp(question)}
+            onClick={handleFollowUp}
             className="w-full mt-3 text-xl"
           >
             {isFollowUpLoading ? "Loading..." : "Ask follow-up"}
@@ -106,16 +99,7 @@ export function OutputPanel({
         </div>
         <div className="flex-1 min-h-0 bg-card">
           <ScrollArea className="h-full mt-3 bg-card">
-            {followUps.map((fu, index) => (
-              <div
-                key={index}
-                className="rounded-md bg-card mt-3 p-3 break-words"
-              >
-                <p className="text-xs text-muted-foreground mb-1">You asked:</p>
-                <p className="text-sm mb-2 font-medium">{fu.question}</p>
-                <MarkdownRenderer markdown={fu.answer} />
-              </div>
-            ))}
+            <MarkdownRenderer markdown={result} />
           </ScrollArea>
         </div>
       </CardContent>

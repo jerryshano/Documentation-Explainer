@@ -9,12 +9,36 @@ const ratelimit = new Ratelimit({
   limiter: Ratelimit.fixedWindow(10, "1 m"),
 });
 
-const levelPrompts = {
-  "tl:dr": "Explain this in a concise and easy to understand way.",
-  beginner: "Explain this like I am new to programming.",
-  intermediate: "Explain this with some technical depth.",
-  advanced: "Explain this at an expert engineering level.",
-};
+function buildPrompt({ input, followUps, level, mode }: ExplainRequest) {
+  const levelInstruction = {
+    "tl:dr": "Explain this in a concise and easy to understand way.",
+    beginner: "Explain this like I am new to programming.",
+    intermediate: "Explain this with some technical depth.",
+    advanced: "Explain this at an expert engineering level.",
+  };
+
+  const instruction =
+    levelInstruction[level as keyof typeof levelInstruction] ?? "";
+
+  if (mode === "followup") {
+    return `
+      ${instruction}
+
+      user input: 
+      ${input}
+
+      follow-up question:
+      ${followUps}
+      `;
+  }
+
+  return `
+      ${instruction}
+
+      user input:
+      ${input}
+    `;
+}
 
 export async function POST(req: Request) {
   try {
@@ -30,11 +54,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
     // get the request body
-    const {
-      input,
-      mode = "explain",
-      level = "tl:dr",
-    } = (await req.json()) as ExplainRequest;
+    const { input, mode, level, followUps } =
+      (await req.json()) as ExplainRequest;
 
     if (!input || typeof input !== "string") {
       console.error("Invalid input logged", input);
@@ -44,10 +65,8 @@ export async function POST(req: Request) {
       );
     }
 
-    const prompt =
-      mode === "explain"
-        ? `${levelPrompts[level]}\n\n${input}`
-        : `${levelPrompts[level]}\n\n${input}`;
+    const prompt = buildPrompt({ input, followUps, level, mode });
+    console.log("prompt", prompt);
 
     const response = await openai.responses.create({
       model: "gpt-5-nano",

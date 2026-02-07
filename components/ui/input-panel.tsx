@@ -10,7 +10,7 @@ import { Tabs, TabsList, TabsTrigger } from "./tabs";
 import { Textarea } from "./textarea";
 import { Input } from "./input";
 import { Button } from "./button";
-import { Level } from "@/app/types";
+import { ExplainRequest } from "@/app/types";
 
 interface InputPanelProps {
   onExplain: () => void;
@@ -18,7 +18,7 @@ interface InputPanelProps {
   setInput: (input: string) => void;
   url: string;
   setUrl: (url: string) => void;
-  setLevel: (level: Level) => void;
+  setLevel: (level: ExplainRequest["level"]) => void;
   isLoading: boolean;
 }
 

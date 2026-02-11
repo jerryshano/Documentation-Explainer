@@ -1,8 +1,8 @@
 export type ExplainRequest = {
-  input: string;
+  input?: string;
   mode?: "explain" | "followup";
   level?: "tl:dr" | "beginner" | "intermediate" | "advanced";
-  followUps?: string;
+  question?: string;
 };
 
 export type ExplainStatus = "idle" | "loading" | "success" | "error";

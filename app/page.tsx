@@ -8,18 +8,20 @@ import { ExplainRequest, ExplainStatus, Mode } from "./types";
 export default function Home() {
   const [status, setStatus] = useState<ExplainStatus>("idle");
   const [result, setResult] = useState<string>("");
-  const [followUps, setFollowUps] = useState<ExplainRequest["followUps"]>("");
+  const [followUpResult, setFollowUpResult] = useState<string>("");
+  const [followUpStatus, setFollowUpStatus] = useState<ExplainStatus>("idle");
   const [mode, setMode] = useState<Mode>("explain" as Mode);
   const [isFollowUpLoading, setIsFollowUpLoading] = useState<boolean>(false);
   const [level, setLevel] = useState<ExplainRequest["level"]>("tl:dr");
   const [input, setInput] = useState("");
+  const [question, setQuestion] = useState("");
   const [url, setUrl] = useState("");
   const [file, setFile] = useState<File | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleExplain = async () => {
     setStatus("loading");
+    setMode("explain");
     try {
       const res = await fetch("/api", {
         method: "POST",
@@ -27,36 +29,38 @@ export default function Home() {
           input: input,
           level: level,
           mode: mode,
-          followUps: followUps,
         }),
       });
       const data = await res.json();
       setResult(data.result ?? "");
       setStatus("success");
       console.log(data);
-    } catch {
+    } catch (error) {
+      console.error("Error explaining", error);
       setStatus("error");
     }
   };
 
   const handleFollowUp = async () => {
     setIsFollowUpLoading(true);
+    setMode("followup");
     try {
       const res = await fetch("/api", {
         method: "POST",
         body: JSON.stringify({
-          input: input,
-          level: level,
+          question: question,
           mode: mode,
-          followUps: followUps,
         }),
       });
       const data = await res.json();
-      setResult(data.result ?? "");
-      setStatus("success");
+      setFollowUpResult(data.result ?? "");
+      setFollowUpStatus("success");
       console.log(data);
-    } catch {
-      setStatus("error");
+    } catch (error) {
+      console.error("Error following up", error);
+      setFollowUpStatus("error");
+    } finally {
+      setIsFollowUpLoading(false);
     }
   };
 
@@ -73,10 +77,14 @@ export default function Home() {
           isLoading={isLoading}
         />
         <OutputPanel
+          question={question}
+          setQuestion={setQuestion}
           status={status}
           result={result}
+          followUpStatus={followUpStatus}
+          followUpResult={followUpResult}
           isFollowUpLoading={isFollowUpLoading}
-          handleFollowUp={handleFollowUp}
+          onFollowUp={handleFollowUp}
         />
       </MainWorkspace>
     </div>

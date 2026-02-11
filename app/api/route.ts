@@ -9,7 +9,7 @@ const ratelimit = new Ratelimit({
   limiter: Ratelimit.fixedWindow(10, "1 m"),
 });
 
-function buildPrompt({ input, followUps, level, mode }: ExplainRequest) {
+function buildPrompt({ input, level, mode, question }: ExplainRequest) {
   const levelInstruction = {
     "tl:dr": "Explain this in a concise and easy to understand way.",
     beginner: "Explain this like I am new to programming.",
@@ -22,16 +22,9 @@ function buildPrompt({ input, followUps, level, mode }: ExplainRequest) {
 
   if (mode === "followup") {
     return `
-      ${instruction}
-
-      user input: 
-      ${input}
-
-      follow-up question:
-      ${followUps}
+      ${question}
       `;
   }
-
   return `
       ${instruction}
 
@@ -54,18 +47,28 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
     // get the request body
-    const { input, mode, level, followUps } =
+    const { input, mode, level, question } =
       (await req.json()) as ExplainRequest;
 
-    if (!input || typeof input !== "string") {
-      console.error("Invalid input logged", input);
-      return NextResponse.json<ExplainResponse>(
-        { error: "Invalid input" },
-        { status: 400 }
-      );
+    if (mode === "followup") {
+      if (!question || typeof question !== "string") {
+        console.error("Invalid question logged", question);
+        return NextResponse.json<ExplainResponse>(
+          { error: "Invalid question" },
+          { status: 400 }
+        );
+      }
+    } else {
+      if (!input || typeof input !== "string") {
+        console.error("Invalid input logged", input);
+        return NextResponse.json<ExplainResponse>(
+          { error: "Invalid input" },
+          { status: 400 }
+        );
+      }
     }
 
-    const prompt = buildPrompt({ input, followUps, level, mode });
+    const prompt = buildPrompt({ input, level, mode, question });
     console.log("prompt", prompt);
 
     const response = await openai.responses.create({

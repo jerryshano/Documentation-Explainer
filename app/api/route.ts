@@ -9,7 +9,7 @@ const ratelimit = new Ratelimit({
   limiter: Ratelimit.fixedWindow(10, "1 m"),
 });
 
-function buildPrompt({ input, level, mode, question }: ExplainRequest) {
+function buildPrompt({ input, level, mode, question, result }: ExplainRequest) {
   const levelInstruction = {
     "tl:dr": "Explain this in a concise and easy to understand way.",
     beginner: "Explain this like I am new to programming.",
@@ -23,6 +23,9 @@ function buildPrompt({ input, level, mode, question }: ExplainRequest) {
   if (mode === "followup") {
     return `
       ${question}
+
+      the previous text is a follow-up question to the following text:
+      ${result}
       `;
   }
   return `

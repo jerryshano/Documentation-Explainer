@@ -3,6 +3,7 @@ export type ExplainRequest = {
   mode?: "explain" | "followup";
   level?: "tl:dr" | "beginner" | "intermediate" | "advanced";
   question?: string;
+  result?: string;
 };
 
 export type ExplainStatus = "idle" | "loading" | "success" | "error";

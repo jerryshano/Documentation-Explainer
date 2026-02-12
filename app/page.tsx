@@ -50,6 +50,7 @@ export default function Home() {
         body: JSON.stringify({
           question: question,
           mode: mode,
+          result: result,
         }),
       });
       const data = await res.json();

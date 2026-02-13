@@ -1,3 +1,4 @@
+import { ExplainRequest } from "@/app/types";
 import { MarkdownRenderer } from "../markdown-renderer";
 import { Alert, AlertDescription, AlertTitle } from "./alert";
 import { Button } from "./button";
@@ -13,14 +14,14 @@ import { Skeleton } from "./skeleton";
 import { Textarea } from "./textarea";
 
 interface OutputPanelProps {
-  question: string;
-  setQuestion: (question: string) => void;
+  question: ExplainRequest["question"];
+  setQuestion: (question: ExplainRequest["question"]) => void;
   isFollowUpLoading: boolean;
   onFollowUp: () => void;
   status: "idle" | "loading" | "success" | "error";
-  result: string;
+  result: ExplainRequest["result"];
   followUpStatus: "idle" | "loading" | "success" | "error";
-  followUpResult: string;
+  followUpResult: ExplainRequest["result"];
 }
 
 export function OutputPanel({
@@ -70,7 +71,7 @@ export function OutputPanel({
         {status === "success" && (
           <div className="h-[300px]">
             <ScrollArea className="h-[300px] pr-4 bg-card">
-              <MarkdownRenderer markdown={result} />
+              <MarkdownRenderer markdown={result ?? ""} />
             </ScrollArea>
           </div>
         )}
@@ -112,7 +113,7 @@ export function OutputPanel({
         <div className="flex-1 min-h-0 bg-card">
           {followUpStatus === "success" && (
             <ScrollArea className="h-full mt-3 bg-card">
-              <MarkdownRenderer markdown={followUpResult} />
+              <MarkdownRenderer markdown={followUpResult ?? ""} />
             </ScrollArea>
           )}
           {followUpStatus === "error" && (

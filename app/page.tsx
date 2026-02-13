@@ -7,14 +7,14 @@ import { ExplainRequest, ExplainStatus, Mode } from "./types";
 
 export default function Home() {
   const [status, setStatus] = useState<ExplainStatus>("idle");
-  const [result, setResult] = useState<string>("");
+  const [result, setResult] = useState<ExplainRequest["result"]>("");
+  const [question, setQuestion] = useState<ExplainRequest["question"]>("");
   const [followUpResult, setFollowUpResult] = useState<string>("");
   const [followUpStatus, setFollowUpStatus] = useState<ExplainStatus>("idle");
   const [mode, setMode] = useState<Mode>("explain" as Mode);
   const [isFollowUpLoading, setIsFollowUpLoading] = useState<boolean>(false);
   const [level, setLevel] = useState<ExplainRequest["level"]>("tl:dr");
   const [input, setInput] = useState("");
-  const [question, setQuestion] = useState("");
   const [url, setUrl] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);

@@ -2,8 +2,8 @@
 import { MainWorkspace } from "@/components/main-workspace";
 import InputPanel from "@/components/ui/input-panel";
 import { OutputPanel } from "@/components/ui/output-panel";
-import { useState } from "react";
-import { ExplainRequest, ExplainStatus, Mode } from "./types";
+import { useEffect, useState } from "react";
+import { ExplainRequest, ExplainStatus, History, Mode } from "./types";
 
 export default function Home() {
   const [status, setStatus] = useState<ExplainStatus>("idle");
@@ -11,6 +11,7 @@ export default function Home() {
   const [question, setQuestion] = useState<ExplainRequest["question"]>("");
   const [followUpResult, setFollowUpResult] = useState<string>("");
   const [followUpStatus, setFollowUpStatus] = useState<ExplainStatus>("idle");
+  const [history, setHistory] = useState<History[]>([]);
   const [mode, setMode] = useState<Mode>("explain" as Mode);
   const [isFollowUpLoading, setIsFollowUpLoading] = useState<boolean>(false);
   const [level, setLevel] = useState<ExplainRequest["level"]>("tl:dr");
@@ -29,17 +30,28 @@ export default function Home() {
           input: input,
           level: level,
           mode: mode,
+          history: history,
         }),
       });
       const data = await res.json();
       setResult(data.result ?? "");
+      setHistory([
+        ...history, // what is this doing?
+        {
+          result: data.result ?? "",
+        },
+      ]);
       setStatus("success");
-      console.log(data);
+      console.log("data", data);
     } catch (error) {
       console.error("Error explaining", error);
       setStatus("error");
     }
   };
+
+  useEffect(() => {
+    console.log("history", history);
+  }, [history]);
 
   const handleFollowUp = async () => {
     setIsFollowUpLoading(true);
@@ -51,10 +63,18 @@ export default function Home() {
           question: question,
           mode: mode,
           result: result,
+          history: history,
         }),
       });
       const data = await res.json();
       setFollowUpResult(data.result ?? "");
+      setHistory([
+        ...history,
+        {
+          question: question,
+          result: data.result ?? "",
+        },
+      ]);
       setFollowUpStatus("success");
       console.log(data);
     } catch (error) {

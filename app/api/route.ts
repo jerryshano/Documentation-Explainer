@@ -24,7 +24,7 @@ function buildPrompt({ input, level, mode, question, result }: ExplainRequest) {
     return `
       ${question}
 
-      the previous text is a follow-up question to the following text:
+      the previous response is a follow-up question to the following text:
       ${result}
       `;
   }
@@ -50,8 +50,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
     // get the request body
-    const { input, mode, level, question } =
-      (await req.json()) as ExplainRequest;
+    const body = (await req.json()) as ExplainRequest & { result?: string };
+    const { input, mode, level, question, result } = body;
 
     if (mode === "followup") {
       if (!question || typeof question !== "string") {
@@ -71,7 +71,7 @@ export async function POST(req: Request) {
       }
     }
 
-    const prompt = buildPrompt({ input, level, mode, question });
+    const prompt = buildPrompt({ input, level, mode, question, result });
     console.log("prompt", prompt);
 
     const response = await openai.responses.create({

@@ -9,8 +9,31 @@ const ratelimit = new Ratelimit({
   limiter: Ratelimit.fixedWindow(10, "1 m"),
 });
 
+function buildPrompt({ input, level, mode, history }: ExplainRequest) {
+  const levelInstruction = {
+    "tl:dr": "Explain this in a concise and easy to understand way.",
+    beginner: "Explain this like I am new to programming.",
+    intermediate: "Explain this with some technical depth.",
+    advanced: "Explain this at an expert engineering level.",
+  };
+
+  const instruction =
+    levelInstruction[level as keyof typeof levelInstruction] ?? "";
+
+  if (mode === "followup") {
+    return history;
+  }
+  return `
+      ${instruction}
+
+      user input:
+      ${input}
+    `;
+}
+
 export async function POST(req: Request) {
   try {
+    // rate limiting
     const identifier = req.headers.get("x-forwarded-for") || "unknown";
     console.log("identifier", identifier);
     if (!identifier) {
@@ -21,19 +44,35 @@ export async function POST(req: Request) {
     if (!success) {
       return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
-    const { input, mode = "explain" } = (await req.json()) as ExplainRequest;
+    // get the request body
+    const body = (await req.json()) as ExplainRequest & { result?: string };
+    const { input, mode, level, question, history } = body;
 
-    if (!input || typeof input !== "string") {
-      return NextResponse.json<ExplainResponse>(
-        { error: "Invalid input" },
-        { status: 400 }
-      );
+    if (mode === "followup") {
+      if (!question || typeof question !== "string") {
+        console.error("Invalid question logged", question);
+        return NextResponse.json<ExplainResponse>(
+          { error: "Invalid question" },
+          { status: 400 }
+        );
+      }
+    } else {
+      if (!input || typeof input !== "string") {
+        console.error("Invalid input logged", input);
+        return NextResponse.json<ExplainResponse>(
+          { error: "Invalid input" },
+          { status: 400 }
+        );
+      }
     }
 
-    const prompt =
-      mode === "followup"
-        ? `Answer this follow-up question based on the previous explanation:\n\n${input}`
-        : `Explain the following documentation clearly and concisely:\n\n${input}`;
+    const prompt = buildPrompt({
+      input,
+      level,
+      mode,
+      history,
+    });
+    console.log("prompt", prompt);
 
     const response = await openai.responses.create({
       model: "gpt-5-nano",

@@ -1,4 +1,3 @@
-"use client";
 import {
   Card,
   CardContent,
@@ -11,24 +10,32 @@ import { Tabs, TabsList, TabsTrigger } from "./tabs";
 import { Textarea } from "./textarea";
 import { Input } from "./input";
 import { Button } from "./button";
-import { useState } from "react";
+import { Level } from "@/app/types";
 
 interface InputPanelProps {
   onExplain: () => void;
-  status: "idle" | "loading" | "success" | "error";
+  input: string;
+  setInput: (input: string) => void;
+  url: string;
+  setUrl: (url: string) => void;
+  setLevel: (level: Level) => void;
+  isLoading: boolean;
 }
 
-export default function InputPanel({ onExplain, status }: InputPanelProps) {
-  const [input, setInput] = useState("");
-  const [url, setUrl] = useState("");
-  const [mode, setMode] = useState("tl:dr");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+export default function InputPanel({
+  onExplain,
+  input,
+  setInput,
+  url,
+  setUrl,
+  setLevel,
+  isLoading,
+}: InputPanelProps) {
   return (
-    <Card className="w-full max-w-3xl overflow-hidden">
+    <Card className="w-full max-w-3xl h-full">
       <CardHeader className="pb-2">
         <CardTitle className="text-4xl font-bold tracking-tight">
-          Input Panel
+          Prompt Panel
         </CardTitle>
         <CardDescription className="text-2xl font-medium">
           Upload, paste, or enter a URL to get started
@@ -47,7 +54,7 @@ export default function InputPanel({ onExplain, status }: InputPanelProps) {
             // onChange={(e) => setFile(e.target.value)}
           />
           <Textarea
-            className="min-h-[600px] mt-3"
+            className="min-h-[500px] mt-3"
             placeholder="Paste your text here"
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -64,28 +71,28 @@ export default function InputPanel({ onExplain, status }: InputPanelProps) {
               <TabsTrigger
                 className="text-xl font-medium"
                 value="tl:dr"
-                onClick={() => setMode("tl:dr")}
+                onClick={() => setLevel("tl:dr")}
               >
                 TL:DR
               </TabsTrigger>
               <TabsTrigger
                 className="text-xl font-medium"
                 value="beginner"
-                onClick={() => setMode("beginner")}
+                onClick={() => setLevel("beginner")}
               >
                 Beginner
               </TabsTrigger>
               <TabsTrigger
                 className="text-xl font-medium"
                 value="intermediate"
-                onClick={() => setMode("intermediate")}
+                onClick={() => setLevel("intermediate")}
               >
                 Intermediate
               </TabsTrigger>
               <TabsTrigger
                 className="text-xl font-medium"
                 value="advanced"
-                onClick={() => setMode("advanced")}
+                onClick={() => setLevel("advanced")}
               >
                 Advanced
               </TabsTrigger>

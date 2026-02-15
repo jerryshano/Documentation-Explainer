@@ -14,8 +14,8 @@ import { Skeleton } from "./skeleton";
 import { Textarea } from "./textarea";
 
 interface OutputPanelProps {
-  question: ExplainRequest["question"];
-  setQuestion: (question: ExplainRequest["question"]) => void;
+  question: string;
+  setQuestion: (question: string) => void;
   isFollowUpLoading: boolean;
   onFollowUp: () => void;
   status: "idle" | "loading" | "success" | "error";
@@ -37,7 +37,7 @@ export function OutputPanel({
   return (
     <Card className="w-full max-w-3xl h-full">
       <CardHeader>
-        <CardTitle className="text-4xl font-bold">Output Panel</CardTitle>
+        <CardTitle className="text-4xl font-bold">Explanation Panel</CardTitle>
         <Button className="text-xl mt-4" size="lg">
           Copy
         </Button>

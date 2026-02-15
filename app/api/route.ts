@@ -9,7 +9,7 @@ const ratelimit = new Ratelimit({
   limiter: Ratelimit.fixedWindow(10, "1 m"),
 });
 
-function buildPrompt({ input, level, mode, question, result }: ExplainRequest) {
+function buildPrompt({ input, level, mode, history }: ExplainRequest) {
   const levelInstruction = {
     "tl:dr": "Explain this in a concise and easy to understand way.",
     beginner: "Explain this like I am new to programming.",
@@ -21,12 +21,7 @@ function buildPrompt({ input, level, mode, question, result }: ExplainRequest) {
     levelInstruction[level as keyof typeof levelInstruction] ?? "";
 
   if (mode === "followup") {
-    return `
-      ${question}
-
-      the previous response is a follow-up question to the following text:
-      ${result}
-      `;
+    return history;
   }
   return `
       ${instruction}
@@ -51,7 +46,7 @@ export async function POST(req: Request) {
     }
     // get the request body
     const body = (await req.json()) as ExplainRequest & { result?: string };
-    const { input, mode, level, question, result } = body;
+    const { input, mode, level, question, history } = body;
 
     if (mode === "followup") {
       if (!question || typeof question !== "string") {
@@ -71,7 +66,12 @@ export async function POST(req: Request) {
       }
     }
 
-    const prompt = buildPrompt({ input, level, mode, question, result });
+    const prompt = buildPrompt({
+      input,
+      level,
+      mode,
+      history,
+    });
     console.log("prompt", prompt);
 
     const response = await openai.responses.create({

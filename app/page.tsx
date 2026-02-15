@@ -3,43 +3,40 @@ import { MainWorkspace } from "@/components/main-workspace";
 import InputPanel from "@/components/ui/input-panel";
 import { OutputPanel } from "@/components/ui/output-panel";
 import { useEffect, useState } from "react";
-import { ExplainRequest, ExplainStatus, History, Mode } from "./types";
+import { ExplainStatus, HistoryMessage, Level } from "./types";
 
 export default function Home() {
   const [status, setStatus] = useState<ExplainStatus>("idle");
-  const [result, setResult] = useState<ExplainRequest["result"]>("");
-  const [question, setQuestion] = useState<ExplainRequest["question"]>("");
+  const [result, setResult] = useState<string>("");
+  const [question, setQuestion] = useState<string>("");
   const [followUpResult, setFollowUpResult] = useState<string>("");
   const [followUpStatus, setFollowUpStatus] = useState<ExplainStatus>("idle");
-  const [history, setHistory] = useState<History[]>([]);
-  const [mode, setMode] = useState<Mode>("explain" as Mode);
+  const [history, setHistory] = useState<HistoryMessage[]>([]);
   const [isFollowUpLoading, setIsFollowUpLoading] = useState<boolean>(false);
-  const [level, setLevel] = useState<ExplainRequest["level"]>("tl:dr");
-  const [input, setInput] = useState("");
+  const [level, setLevel] = useState<Level>("tl:dr");
+  const [input, setInput] = useState<string>("");
   const [url, setUrl] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleExplain = async () => {
     setStatus("loading");
-    setMode("explain");
     try {
       const res = await fetch("/api", {
         method: "POST",
         body: JSON.stringify({
           input: input,
+
           level: level,
-          mode: mode,
-          history: history,
+          mode: "explain",
         }),
       });
       const data = await res.json();
       setResult(data.result ?? "");
       setHistory([
-        ...history, // what is this doing?
-        {
-          result: data.result ?? "",
-        },
+        ...history,
+        { role: "user", content: input ?? "" },
+        { role: "assistant", content: data.result ?? "" },
       ]);
       setStatus("success");
       console.log("data", data);
@@ -55,14 +52,13 @@ export default function Home() {
 
   const handleFollowUp = async () => {
     setIsFollowUpLoading(true);
-    setMode("followup");
     try {
       const res = await fetch("/api", {
         method: "POST",
         body: JSON.stringify({
           question: question,
-          mode: mode,
           result: result,
+          mode: "followup",
           history: history,
         }),
       });
@@ -70,10 +66,8 @@ export default function Home() {
       setFollowUpResult(data.result ?? "");
       setHistory([
         ...history,
-        {
-          question: question,
-          result: data.result ?? "",
-        },
+        { role: "user", content: question ?? "" },
+        { role: "assistant", content: data.result ?? "" },
       ]);
       setFollowUpStatus("success");
       console.log(data);

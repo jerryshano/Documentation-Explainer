@@ -1,15 +1,20 @@
+export type Level = "tl:dr" | "beginner" | "intermediate" | "advanced";
+
 export type ExplainRequest = {
   input?: string;
   mode?: "explain" | "followup";
-  level?: "tl:dr" | "beginner" | "intermediate" | "advanced";
+  level?: Level;
   question?: string;
   result?: string;
+  history?: HistoryMessage[];
 };
 
-export type History = {
-  result: ExplainRequest["result"];
-  question?: ExplainRequest["question"];
+export type HistoryMessage = {
+  role: "user" | "assistant";
+  content: string;
 };
+
+export type History = HistoryMessage[];
 
 export type ExplainStatus = "idle" | "loading" | "success" | "error";
 

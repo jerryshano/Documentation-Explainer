@@ -10,7 +10,7 @@ import { Tabs, TabsList, TabsTrigger } from "./tabs";
 import { Textarea } from "./textarea";
 import { Input } from "./input";
 import { Button } from "./button";
-import { ExplainRequest } from "@/app/types";
+import { Level } from "@/app/types";
 
 interface InputPanelProps {
   onExplain: () => void;
@@ -18,7 +18,7 @@ interface InputPanelProps {
   setInput: (input: string) => void;
   url: string;
   setUrl: (url: string) => void;
-  setLevel: (level: ExplainRequest["level"]) => void;
+  setLevel: (level: Level) => void;
   isLoading: boolean;
 }
 
@@ -35,7 +35,7 @@ export default function InputPanel({
     <Card className="w-full max-w-3xl h-full">
       <CardHeader className="pb-2">
         <CardTitle className="text-4xl font-bold tracking-tight">
-          Input Panel
+          Prompt Panel
         </CardTitle>
         <CardDescription className="text-2xl font-medium">
           Upload, paste, or enter a URL to get started

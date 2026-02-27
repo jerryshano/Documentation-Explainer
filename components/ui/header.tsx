@@ -18,6 +18,7 @@ export function Header() {
           </div>
         </Link>
         <div className="flex items-center gap-2">
+          <AuthButtons />
           <ModeToggle />
           <Avatar className="size-12 rounded-lg!">
             <Link href="https://github.com/jerryshano" target="_blank">
@@ -25,7 +26,6 @@ export function Header() {
               <AvatarFallback className="rounded-lg">CN</AvatarFallback>
             </Link>
           </Avatar>
-          <AuthButtons />
         </div>
       </div>
     </header>

@@ -12,8 +12,14 @@ export function AuthButtons() {
   if (session) {
     return (
       <>
-        <span>Signed in as {session.user?.email}</span>
-        <Button type="button" onClick={() => signOut()}>
+        <span className="text-lg font-medium">
+          Signed in as {session.user?.email}
+        </span>
+        <Button
+          className="h-12 w-20 rounded-xl text-lg font-medium"
+          type="button"
+          onClick={() => signOut()}
+        >
           Sign out
         </Button>
       </>
@@ -21,8 +27,12 @@ export function AuthButtons() {
   }
 
   return (
-    <Button type="button" onClick={() => signIn()}>
-      Sign in with Google
+    <Button
+      className="h-12 w-17 rounded-xl text-lg font-medium"
+      type="button"
+      onClick={() => signIn()}
+    >
+      Sign in
     </Button>
   );
 }

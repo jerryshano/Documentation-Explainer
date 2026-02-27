@@ -64,7 +64,7 @@ export function OutputPanel({
               <Skeleton className="h-4 w-5/6" />
               <Skeleton className="h-4 w-2/3" />
               <Skeleton className="h-4 w-4/5" />
-              <Skeleton className="h-4 w-5/6" />
+              {/* <Skeleton className="h-4 w-5/6" /> */}
             </div>
           </div>
         )}
@@ -128,6 +128,15 @@ export function OutputPanel({
           {followUpStatus === "loading" && (
             <div className="flex flex-col h-[300px] space-y-3">
               <Skeleton className="h-[125px] w-full rounded-xl" />
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-5/6" />
+                <Skeleton className="h-4 w-2/3" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-5/6" />
+                <Skeleton className="h-4 w-2/3" />
+                <Skeleton className="h-4 w-4/5" />
+              </div>
             </div>
           )}
           {followUpStatus === "idle" && (

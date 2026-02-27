@@ -52,6 +52,7 @@ export default function Home() {
 
   const handleFollowUp = async () => {
     setIsFollowUpLoading(true);
+    setFollowUpStatus("loading");
     try {
       const res = await fetch("/api", {
         method: "POST",

@@ -1,7 +1,8 @@
 "use client";
+
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Button } from "./ui/button";
-
+import React from "react";
 export function AuthButtons() {
   const { data: session, status } = useSession();
 

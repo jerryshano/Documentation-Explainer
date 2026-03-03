@@ -35,13 +35,15 @@ export function OutputPanel({
   onFollowUp,
 }: OutputPanelProps) {
   return (
-    <Card className="w-full max-w-3xl h-full">
+    <Card className="w-full min-w-0 lg:max-w-3xl h-auto md:h-full min-h-[280px]">
       <CardHeader>
-        <CardTitle className="text-4xl font-bold">Explanation Panel</CardTitle>
+        <CardTitle className="md:text-4xl text-2xl font-bold">
+          Explanation Panel
+        </CardTitle>
         <Button className="text-xl mt-4" size="lg">
           Copy
         </Button>
-        <CardDescription className="text-2xl mt-2">
+        <CardDescription className="text-md md:text-2xl mt-2">
           Documentation Explanation
         </CardDescription>
       </CardHeader>

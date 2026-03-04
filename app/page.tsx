@@ -46,10 +46,6 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    console.log("history", history);
-  }, [history]);
-
   const handleFollowUp = async () => {
     setIsFollowUpLoading(true);
     setFollowUpStatus("loading");

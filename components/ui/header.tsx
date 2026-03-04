@@ -8,7 +8,7 @@ import { AuthButtons } from "../authbuttons";
 export function Header() {
   return (
     <header className="bg-secondary border">
-      <div className="flex items-center justify-between p-3">
+      <div className="flex items-center justify-between py-3 px-4">
         <Link href="/">
           <div className="flex items-center gap-2">
             <Image src="/goat.png" alt="logo" width={32} height={32} />

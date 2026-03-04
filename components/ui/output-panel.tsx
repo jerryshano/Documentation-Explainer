@@ -12,6 +12,7 @@ import {
 import { ScrollArea } from "./scroll-area";
 import { Skeleton } from "./skeleton";
 import { Textarea } from "./textarea";
+import { Separator } from "./separator";
 
 interface OutputPanelProps {
   question: string;
@@ -40,18 +41,15 @@ export function OutputPanel({
         <CardTitle className="md:text-4xl text-2xl font-bold">
           Explanation Panel
         </CardTitle>
-        <Button className="text-xl mt-4" size="lg">
+        <Button className="md:text-xl text-md mt-4" size="lg">
           Copy
         </Button>
-        <CardDescription className="text-md md:text-2xl mt-2">
-          Documentation Explanation
-        </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col h-full">
         {status === "idle" && (
           <div className="h-[300px] flex items-center justify-center">
             <p className="text-lg text-muted-foreground">
-              Paste documentation to begin
+              Your answer will appear here...
             </p>
           </div>
         )}
@@ -88,7 +86,8 @@ export function OutputPanel({
             </Alert>
           </div>
         )}
-        <div className="border-t pt-4 space-y-2">
+        <Separator />
+        <div className="pt-4 space-y-2">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -105,7 +104,7 @@ export function OutputPanel({
             <Button
               size="lg"
               disabled={!question || isFollowUpLoading}
-              className="w-full mt-3 text-xl"
+              className="w-full mt-3 md:text-xl text-md"
               type="submit"
             >
               {isFollowUpLoading ? "Loading..." : "Ask follow-up"}
@@ -143,8 +142,8 @@ export function OutputPanel({
           )}
           {followUpStatus === "idle" && (
             <div className="h-[300px] flex items-center justify-center">
-              <p className="text-lg text-muted-foreground">
-                Ask a follow-up question to get started
+              <p className="text-md md:text-lg text-muted-foreground">
+                Your follow-up answer will appear here...
               </p>
             </div>
           )}

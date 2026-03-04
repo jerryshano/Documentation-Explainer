@@ -58,12 +58,7 @@ export default function InputPanel({
         }}
       >
         <Separator />
-        <CardContent className="space-y-3 md:space-y-6 py-5">
-          <Input
-            type="file"
-            // value={file}
-            // onChange={(e) => setFile(e.target.value)}
-          />
+        <CardContent className="space-y-3 md:space-y-6 py-6">
           <Textarea
             className="min-h-[200px] md:min-h-[500px] mt-3"
             placeholder="Paste your text here"
@@ -145,7 +140,7 @@ export default function InputPanel({
             </div>
           </Tabs>
         </CardContent>
-        <CardFooter className="mt-3">
+        <CardFooter className="">
           <Button
             type="submit"
             size="lg"

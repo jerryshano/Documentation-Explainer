@@ -21,17 +21,19 @@ export function AuthButtons() {
 
   if (session) {
     const email = session.user?.email ?? "";
-    const initial = email.charAt(0).toUpperCase();
     return (
       <>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Avatar className="size-12 rounded-lg!">
+            <Avatar className="size-12 rounded-lg! hover:bg-slate-800 transition duration-300 cursor-pointer">
               <AvatarImage
-                src={session.user?.image ? session.user.image : initial}
+                referrerPolicy="no-referrer"
+                src={session.user?.image ?? ""}
                 className="rounded-lg"
               />
-              <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+              <AvatarFallback className="rounded-lg">
+                {session.user?.name?.charAt(0).toUpperCase() ?? ""}
+              </AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
 

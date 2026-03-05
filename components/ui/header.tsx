@@ -11,7 +11,13 @@ export function Header() {
       <div className="flex items-center justify-between py-3 px-4">
         <Link href="/">
           <div className="flex items-center gap-2">
-            <Image src="/goat.png" alt="logo" width={32} height={32} style={{ height: "auto" }} />
+            <Image
+              src="/goat.png"
+              alt="logo"
+              width={32}
+              height={32}
+              style={{ height: "auto" }}
+            />
             <span className="font-bold hidden lg:text-4xl tracking-tight">
               DOCEXPLAINR
             </span>

@@ -1,5 +1,4 @@
 "use client";
-
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Button } from "./ui/button";
 import React from "react";
@@ -9,9 +8,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export function AuthButtons() {
   const { data: session, status } = useSession();
+  console.log("session", session);
+  console.log("status", status);
 
   if (status === "loading") {
     return <span>Loading...</span>;
@@ -24,11 +26,13 @@ export function AuthButtons() {
       <>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center gap-2 rounded-xl px-3 py-2 hover:bg-slate-800 transition">
-              <div className="size-12 rounded-full bg-slate-600 flex items-center justify-center text-white font-medium">
-                {initial}
-              </div>
-            </button>
+            <Avatar className="size-12 rounded-lg!">
+              <AvatarImage
+                src={session.user?.image ? session.user.image : initial}
+                className="rounded-lg"
+              />
+              <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+            </Avatar>
           </DropdownMenuTrigger>
 
           <DropdownMenuContent align="end" className="w-56">

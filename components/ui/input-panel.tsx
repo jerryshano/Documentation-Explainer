@@ -58,9 +58,9 @@ export default function InputPanel({
         }}
       >
         <Separator />
-        <CardContent className="space-y-3 md:space-y-6 py-6">
+        <CardContent className="space-y-3 md:space-y-6 py-3">
           <Textarea
-            className="min-h-[200px] md:min-h-[500px] mt-3"
+            className="min-h-[250px] md:min-h-[500px] mt-3"
             placeholder="Paste your text here"
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -72,40 +72,7 @@ export default function InputPanel({
             value={url}
             onChange={(e) => setUrl(e.target.value)}
           />
-          <div className="md:hidden w-full mt-3">
-            <Select>
-              <SelectTrigger className="w-full text-md">
-                <SelectValue placeholder="Select a Level" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Levels</SelectLabel>
-                  <SelectItem value="tl:dr" onClick={() => setLevel("tl:dr")}>
-                    TL:DR
-                  </SelectItem>
-                  <SelectItem
-                    value="beginner"
-                    onClick={() => setLevel("beginner")}
-                  >
-                    Beginner
-                  </SelectItem>
-                  <SelectItem
-                    value="intermediate"
-                    onClick={() => setLevel("intermediate")}
-                  >
-                    Intermediate
-                  </SelectItem>
-                  <SelectItem
-                    value="advanced"
-                    onClick={() => setLevel("advanced")}
-                  >
-                    Advanced
-                  </SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-          <Tabs defaultValue="tl:dr" className="hidden md:block w-full mt-3">
+          <Tabs defaultValue="tl:dr" className=" w-full mt-3">
             <div className="overflow-x-auto -mx-1 px-1">
               <TabsList className="flex-nowrap">
                 <TabsTrigger
@@ -120,21 +87,24 @@ export default function InputPanel({
                   value="beginner"
                   onClick={() => setLevel("beginner")}
                 >
-                  Beginner
+                  <span className="md:hidden">Bginnr</span>
+                  <span className="hidden md:inline">Beginner</span>
                 </TabsTrigger>
                 <TabsTrigger
                   className="text-md md:text-xl font-medium"
                   value="intermediate"
                   onClick={() => setLevel("intermediate")}
                 >
-                  Intermediate
+                  <span className="md:hidden">Intrmdiate</span>
+                  <span className="hidden md:inline">Intermediate</span>
                 </TabsTrigger>
                 <TabsTrigger
                   className="text-md md:text-xl font-medium"
                   value="advanced"
                   onClick={() => setLevel("advanced")}
                 >
-                  Advanced
+                  <span className="md:hidden">Advncd</span>
+                  <span className="hidden md:inline">Advanced</span>
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -144,7 +114,7 @@ export default function InputPanel({
           <Button
             type="submit"
             size="lg"
-            className="w-full text-md md:text-xl font-medium"
+            className="w-full text-md md:text-xl font-medium active:scale-95 active:brightness-90 active:translate-y-0.5 transition-all duration-100"
           >
             {isLoading ? "Loading..." : "Explain Documentation"}
           </Button>

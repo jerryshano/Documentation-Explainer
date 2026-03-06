@@ -18,12 +18,12 @@ export function Header() {
               height={32}
               style={{ height: "auto" }}
             />
-            <span className="font-bold hidden lg:text-4xl tracking-tight">
+            <span className="font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent hidden md:text-2xl lg:text-3xl  tracking-tight">
               DOCEXPLAINR
             </span>
           </div>
         </Link>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           <AuthButtons />
           <ModeToggle />
           <Avatar className="size-12 rounded-lg!">

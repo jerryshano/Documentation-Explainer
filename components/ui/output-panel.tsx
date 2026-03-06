@@ -2,13 +2,7 @@ import { ExplainRequest } from "@/app/types";
 import { MarkdownRenderer } from "../markdown-renderer";
 import { Alert, AlertDescription, AlertTitle } from "./alert";
 import { Button } from "./button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./card";
+import { Card, CardContent, CardHeader, CardTitle } from "./card";
 import { ScrollArea } from "./scroll-area";
 import { Skeleton } from "./skeleton";
 import { Textarea } from "./textarea";
@@ -36,25 +30,30 @@ export function OutputPanel({
   onFollowUp,
 }: OutputPanelProps) {
   return (
-    <Card className="w-full min-w-0 lg:max-w-3xl h-auto md:h-full min-h-[280px]">
-      <CardHeader>
-        <CardTitle className="md:text-4xl text-2xl font-bold">
-          Explanation Panel
-        </CardTitle>
-        <Button className="md:text-xl text-md mt-4" size="lg">
-          Copy
-        </Button>
+    <Card className="w-full min-w-0 lg:max-w-3xl min-h-[280px] flex flex-col border border-border/50 shadow-lg backdrop-blur-sm">
+      <CardHeader className="shrink-0 border-b border-border/50 pb-3">
+        <div className="flex flex-row justify-between items-center w-full gap-3">
+          <CardTitle className="md:text-2xl text-2xl font-bold truncate min-w-0">
+            Explanation Panel
+          </CardTitle>
+          <Button
+            className="shrink-0 md:text-base text-sm active:scale-95 active:brightness-90 active:translate-y-0.5 transition-all duration-100 "
+            size="sm"
+          >
+            Copy
+          </Button>
+        </div>
       </CardHeader>
-      <CardContent className="flex flex-col h-full">
+      <CardContent className="flex flex-col flex-1 min-h-0">
         {status === "idle" && (
-          <div className="h-[300px] flex items-center justify-center">
-            <p className="text-lg text-muted-foreground">
+          <div className="min-h-[280px] shrink-0 flex items-center justify-center mt-2 rounded-lg border border-dashed border-border/60 bg-muted/30">
+            <p className="text-base text-muted-foreground md:text-lg">
               Your answer will appear here...
             </p>
           </div>
         )}
         {status === "loading" && (
-          <div className="flex flex-col h-[300px] space-y-3">
+          <div className="flex flex-col h-[240px] shrink-0 space-y-3">
             <Skeleton className="h-[125px] w-full rounded-xl" />
             <div className="space-y-2">
               <Skeleton className="h-4 w-full" />
@@ -64,19 +63,18 @@ export function OutputPanel({
               <Skeleton className="h-4 w-5/6" />
               <Skeleton className="h-4 w-2/3" />
               <Skeleton className="h-4 w-4/5" />
-              {/* <Skeleton className="h-4 w-5/6" /> */}
             </div>
           </div>
         )}
         {status === "success" && (
-          <div className="h-[300px]">
-            <ScrollArea className="h-[300px] pr-4 bg-card">
+          <div className="h-[240px] shrink-0">
+            <ScrollArea className="h-[240px] pr-4 bg-card">
               <MarkdownRenderer markdown={result ?? ""} />
             </ScrollArea>
           </div>
         )}
         {status === "error" && (
-          <div className="h-[300px]">
+          <div className="h-[240px] shrink-0">
             <Alert variant="destructive">
               <AlertTitle>Unable to generate explanation</AlertTitle>
               <AlertDescription>
@@ -86,8 +84,8 @@ export function OutputPanel({
             </Alert>
           </div>
         )}
-        <Separator />
-        <div className="pt-4 space-y-2">
+        <Separator className="my-4" />
+        <div className="space-y-4">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -104,7 +102,7 @@ export function OutputPanel({
             <Button
               size="lg"
               disabled={!question || isFollowUpLoading}
-              className="w-full mt-3 md:text-xl text-md"
+              className="w-full mt-3 md:text-xl text-md active:scale-95 active:brightness-90 active:translate-y-0.5 transition-all duration-100"
               type="submit"
             >
               {isFollowUpLoading ? "Loading..." : "Ask follow-up"}
@@ -127,7 +125,7 @@ export function OutputPanel({
             </Alert>
           )}
           {followUpStatus === "loading" && (
-            <div className="flex flex-col h-[300px] space-y-3">
+            <div className="flex flex-col h-[240px] space-y-3">
               <Skeleton className="h-[125px] w-full rounded-xl" />
               <div className="space-y-2">
                 <Skeleton className="h-4 w-full" />
@@ -141,7 +139,7 @@ export function OutputPanel({
             </div>
           )}
           {followUpStatus === "idle" && (
-            <div className="h-[300px] flex items-center justify-center">
+            <div className="h-[240px] mt-3 flex items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/30">
               <p className="text-md md:text-lg text-muted-foreground">
                 Your follow-up answer will appear here...
               </p>

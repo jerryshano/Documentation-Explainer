@@ -12,15 +12,6 @@ import { Input } from "./input";
 import { Button } from "./button";
 import { Level } from "@/app/types";
 import { Separator } from "./separator";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "./select";
 
 interface InputPanelProps {
   onExplain: () => void;
@@ -42,7 +33,7 @@ export default function InputPanel({
   isLoading,
 }: InputPanelProps) {
   return (
-    <Card className="w-full min-w-0 bg-white/5 backdrop-blur-sm border border-border/50 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl lg:max-w-3xl h-auto md:h-full">
+    <Card className="w-full min-w-0 flex flex-col md:h-full md:min-h-0 bg-white/5 backdrop-blur-sm border border-border/50 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl ">
       <CardHeader className="pb-2">
         <CardTitle className="md:text-4xl text-2xl font-bold tracking-tight">
           Prompt Panel
@@ -52,15 +43,16 @@ export default function InputPanel({
         </CardDescription>
       </CardHeader>
       <form
+        className="flex flex-col flex-1 min-h-0"
         onSubmit={(e) => {
           e.preventDefault();
           onExplain();
         }}
       >
         <Separator />
-        <CardContent className="space-y-3 md:space-y-6 py-3">
+        <CardContent className="flex flex-col flex-1 min-h-0 overflow-auto space-y-3 md:space-y-6 py-3">
           <Textarea
-            className="min-h-[250px] md:min-h-[500px] mt-3"
+            className="flex-1 min-h-0 mt-3 resize-none"
             placeholder="Paste your text here"
             value={input}
             onChange={(e) => setInput(e.target.value)}

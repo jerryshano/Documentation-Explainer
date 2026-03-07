@@ -2,7 +2,7 @@
 import { MainWorkspace } from "@/components/main-workspace";
 import InputPanel from "@/components/ui/input-panel";
 import { OutputPanel } from "@/components/ui/output-panel";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ExplainStatus, HistoryMessage, Level } from "./types";
 
 export default function Home() {
@@ -16,7 +16,6 @@ export default function Home() {
   const [level, setLevel] = useState<Level>("tl:dr");
   const [input, setInput] = useState<string>("");
   const [url, setUrl] = useState("");
-  const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleExplain = async () => {
@@ -77,27 +76,31 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen w-full max-w-full overflow-x-hidden">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden p-4 md:pb-4 pb-[max(3rem,env(safe-area-inset-bottom))] flex flex-col">
       <MainWorkspace>
-        <InputPanel
-          onExplain={handleExplain}
-          input={input}
-          setInput={setInput}
-          url={url}
-          setUrl={setUrl}
-          setLevel={setLevel}
-          isLoading={isLoading}
-        />
-        <OutputPanel
-          question={question}
-          setQuestion={setQuestion}
-          status={status}
-          result={result}
-          followUpStatus={followUpStatus}
-          followUpResult={followUpResult}
-          isFollowUpLoading={isFollowUpLoading}
-          onFollowUp={handleFollowUp}
-        />
+        <div className="flex flex-col min-w-0 md:flex-1 md:min-h-0">
+          <InputPanel
+            onExplain={handleExplain}
+            input={input}
+            setInput={setInput}
+            url={url}
+            setUrl={setUrl}
+            setLevel={setLevel}
+            isLoading={isLoading}
+          />
+        </div>
+        <div className="flex flex-col min-w-0 md:flex-1 md:min-h-0">
+          <OutputPanel
+            question={question}
+            setQuestion={setQuestion}
+            status={status}
+            result={result}
+            followUpStatus={followUpStatus}
+            followUpResult={followUpResult}
+            isFollowUpLoading={isFollowUpLoading}
+            onFollowUp={handleFollowUp}
+          />
+        </div>
       </MainWorkspace>
     </div>
   );

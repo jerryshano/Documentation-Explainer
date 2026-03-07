@@ -52,7 +52,7 @@ export function AuthButtons() {
 
   return (
     <Button
-      className="h-12 w-17 rounded-xl text-lg font-medium"
+      className="h-12 w-17 md:w-20 lg:w-26 rounded-xl text-lg md:text-lg lg:text-2xl lg:font-bold font-medium"
       type="button"
       onClick={() => signIn()}
     >

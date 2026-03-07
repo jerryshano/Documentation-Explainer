@@ -7,6 +7,8 @@ import { ScrollArea } from "./scroll-area";
 import { Skeleton } from "./skeleton";
 import { Textarea } from "./textarea";
 import { Separator } from "./separator";
+import SyntaxHighlight from "../syntax-highlighter";
+import MarkdownOutput from "../markdown-output";
 
 interface OutputPanelProps {
   question: string;
@@ -30,14 +32,14 @@ export function OutputPanel({
   onFollowUp,
 }: OutputPanelProps) {
   return (
-    <Card className="w-full min-w-0 lg:max-w-3xl min-h-[280px] flex flex-col border border-border/50 shadow-lg backdrop-blur-sm">
+    <Card className="w-full min-w-0 lg:max-w-3xl min-h-[280px] flex flex-col border border-border/50 bg-white/5 shadow-lg backdrop-blur-sm transition hover:-translate-y-1 hover:shadow-2xl">
       <CardHeader className="shrink-0 border-b border-border/50 pb-3">
         <div className="flex flex-row justify-between items-center w-full gap-3">
           <CardTitle className="md:text-2xl text-2xl font-bold truncate min-w-0">
             Explanation Panel
           </CardTitle>
           <Button
-            className="shrink-0 md:text-base text-sm active:scale-95 active:brightness-90 active:translate-y-0.5 transition-all duration-100 "
+            className="shrink-0 md:text-base text-sm active:scale-95 active:brightness-90 active:translate-y-0.5 transition-all duration-100 hover:scale-[1.02] active:scale-[0.98]"
             size="sm"
           >
             Copy
@@ -46,9 +48,12 @@ export function OutputPanel({
       </CardHeader>
       <CardContent className="flex flex-col flex-1 min-h-0">
         {status === "idle" && (
-          <div className="min-h-[280px] shrink-0 flex items-center justify-center mt-2 rounded-lg border border-dashed border-border/60 bg-muted/30">
+          <div className="min-h-[280px] shrink-0 flex flex-col items-center justify-center mt-2 rounded-lg border border-dashed border-border/60 bg-muted/30">
             <p className="text-base text-muted-foreground md:text-lg">
               Your answer will appear here...
+            </p>
+            <p className="text-lg mt-2 text-muted-foreground">
+              Paste documentation into the left panel to get started.
             </p>
           </div>
         )}
@@ -68,8 +73,8 @@ export function OutputPanel({
         )}
         {status === "success" && (
           <div className="h-[240px] shrink-0">
-            <ScrollArea className="h-[240px] pr-4 bg-card">
-              <MarkdownRenderer markdown={result ?? ""} />
+            <ScrollArea className="h-[240px] pr-4 bg-card whitespace-pre-wrap animate-fade-in">
+              <MarkdownOutput content={result ?? ""} />
             </ScrollArea>
           </div>
         )}
@@ -139,9 +144,12 @@ export function OutputPanel({
             </div>
           )}
           {followUpStatus === "idle" && (
-            <div className="h-[240px] mt-3 flex items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/30">
+            <div className="h-[240px] mt-3 flex flex-col items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/30">
               <p className="text-md md:text-lg text-muted-foreground">
                 Your follow-up answer will appear here...
+              </p>
+              <p className="text-lg mt-2 text-muted-foreground">
+                Paste the explanation into the left panel to get started.
               </p>
             </div>
           )}

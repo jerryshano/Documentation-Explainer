@@ -18,7 +18,7 @@ export function Header() {
               height={32}
               style={{ height: "auto" }}
             />
-            <span className="font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent hidden md:text-2xl lg:text-3xl  tracking-tight">
+            <span className="font-bold bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent hidden md:block text-4xl lg:text-5xl tracking-tight">
               DOCEXPLAINR
             </span>
           </div>

@@ -42,13 +42,13 @@ export default function InputPanel({
   isLoading,
 }: InputPanelProps) {
   return (
-    <Card className="w-full min-w-0 lg:max-w-3xl h-auto md:h-full">
+    <Card className="w-full min-w-0 bg-white/5 backdrop-blur-sm border border-border/50 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl lg:max-w-3xl h-auto md:h-full">
       <CardHeader className="pb-2">
         <CardTitle className="md:text-4xl text-2xl font-bold tracking-tight">
           Prompt Panel
         </CardTitle>
         <CardDescription className="text-md md:text-2xl font-medium">
-          Upload, paste, or enter a URL to get started
+          Paste your text or enter a URL to get started
         </CardDescription>
       </CardHeader>
       <form
@@ -114,7 +114,7 @@ export default function InputPanel({
           <Button
             type="submit"
             size="lg"
-            className="w-full text-md md:text-xl font-medium active:scale-95 active:brightness-90 active:translate-y-0.5 transition-all duration-100"
+            className="w-full text-md md:text-xl font-medium active:scale-95 active:brightness-90 active:translate-y-0.5 transition-all duration-100 hover:scale-[1.02] active:scale-[0.98]"
           >
             {isLoading ? "Loading..." : "Explain Documentation"}
           </Button>

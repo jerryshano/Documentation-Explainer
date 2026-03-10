@@ -39,7 +39,7 @@ export default function InputPanel({
           Prompt Panel
         </CardTitle>
         <CardDescription className="text-md md:text-2xl font-medium">
-          Paste or enter a URL to get started
+          Paste documentation below to get started
         </CardDescription>
       </CardHeader>
       <form
@@ -50,9 +50,9 @@ export default function InputPanel({
         }}
       >
         <Separator />
-        <CardContent className="flex flex-col flex-1 min-h-0 overflow-auto space-y-9 md:space-y-6 py-4">
+        <CardContent className="flex flex-col flex-1 min-h-0 overflow-auto space-y-9 py-8">
           <Textarea
-            className="flex-1 min-h-[45vh] md:min-h-0 mt-3 resize-none text-md md:text-lg lg:text-xl"
+            className="flex-1 min-h-[45vh] md:min-h-0 resize-none text-md md:text-lg lg:text-xl"
             placeholder="Paste your documentation here"
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -102,7 +102,7 @@ export default function InputPanel({
             </div>
           </Tabs>
         </CardContent>
-        <CardFooter className="mt-4">
+        <CardFooter className="mt-3">
           <Button
             type="submit"
             size="lg"

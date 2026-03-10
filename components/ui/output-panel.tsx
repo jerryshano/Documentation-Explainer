@@ -2,7 +2,13 @@ import { ExplainRequest } from "@/app/types";
 import { MarkdownRenderer } from "../markdown-renderer";
 import { Alert, AlertDescription, AlertTitle } from "./alert";
 import { Button } from "./button";
-import { Card, CardContent, CardHeader, CardTitle } from "./card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./card";
 import { ScrollArea } from "./scroll-area";
 import { Skeleton } from "./skeleton";
 import { Textarea } from "./textarea";
@@ -45,13 +51,16 @@ export function OutputPanel({
             Copy
           </Button>
         </div>
+        <CardDescription className="text-md md:text-2xl font-medium">
+          Your explanation will appear below
+        </CardDescription>
       </CardHeader>
       <Separator />
-      <CardContent className="flex flex-col flex-1 min-h-0 space-y-9 md:space-y-6 py-4">
+      <CardContent className="flex flex-col flex-1 min-h-0 space-y-9 py-2">
         {status === "idle" && (
-          <div className="h-[280px] md:h-[420px] lg:h-[430px] shrink-0 flex flex-col items-center justify-center mt-2 rounded-lg border border-dashed border-border/60 bg-muted/30">
+          <div className="h-[280px] md:h-[310px] lg:h-[390px] shrink-0 rounded-lg border border-dashed border-border/60 bg-muted/30">
             <p className="text-lg mt-2 text-muted-foreground px-4">
-              Paste documentation into the prompt panel to get started.
+              Paste documentation into the prompt panel to the Left to begin
             </p>
           </div>
         )}
@@ -98,7 +107,7 @@ export function OutputPanel({
           <Textarea
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            disabled={isFollowUpLoading}
+            disabled={followUpStatus !== "idle" || isFollowUpLoading}
             placeholder="Ask a follow-up question..."
             className="h-[100px] md:h-[120px] lg:h-[140px] text-md md:text-lg lg:text-xl overflow-y-auto"
           />
@@ -141,7 +150,7 @@ export function OutputPanel({
             </div>
           )}
           {followUpStatus === "idle" && (
-            <div className="min-h-[280px] md:min-h-0 mt-3 md:flex-1 flex flex-col items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/30">
+            <div className="min-h-[280px] md:min-h-0 flex-1 rounded-lg border border-dashed border-border/60 bg-muted/30">
               <p className="text-lg mt-2 text-muted-foreground px-4">
                 Paste the explanation into the left panel to get started.
               </p>

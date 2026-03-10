@@ -25,7 +25,7 @@ export function AuthButtons() {
       <>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Avatar className="size-12 rounded-lg! hover:bg-slate-800 transition duration-300 cursor-pointer">
+            <Avatar className="size-12 md:size-14 lg:size-16 rounded-lg! hover:bg-slate-800 transition duration-300 cursor-pointer">
               <AvatarImage
                 referrerPolicy="no-referrer"
                 src={session.user?.image ?? ""}
@@ -52,7 +52,7 @@ export function AuthButtons() {
 
   return (
     <Button
-      className="h-12 w-17 md:w-20 lg:w-26 rounded-xl text-lg md:text-lg lg:text-2xl lg:font-bold font-medium"
+      className="h-12 w-17 md:w-20 lg:w-26 md:h-14 lg:h-16 rounded-xl text-lg md:text-xl lg:text-2xl md:font-bold font-medium"
       type="button"
       onClick={() => signIn()}
     >

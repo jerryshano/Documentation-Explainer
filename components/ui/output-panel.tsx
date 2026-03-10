@@ -32,9 +32,9 @@ export function OutputPanel({
 }: OutputPanelProps) {
   return (
     <Card className="w-full min-w-0 md:h-full md:flex md:flex-col md:min-h-0 bg-white/5 backdrop-blur-sm border border-border/50 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl ">
-      <CardHeader className="shrink-0 border-b border-border/50 pb-3">
+      <CardHeader className="shrink-0 pb-3">
         <div className="flex flex-row justify-between items-center w-full gap-3">
-          <CardTitle className="md:text-2xl text-2xl font-bold truncate min-w-0">
+          <CardTitle className="md:text-3xl lg:text-4xl text-2xl font-bold truncate min-w-0">
             Explanation Panel
           </CardTitle>
           <Button
@@ -46,16 +46,17 @@ export function OutputPanel({
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="flex flex-col flex-1 min-h-0">
+      <Separator />
+      <CardContent className="flex flex-col flex-1 min-h-0 space-y-9 md:space-y-6 py-4">
         {status === "idle" && (
-          <div className="min-h-[280px] shrink-0 flex flex-col items-center justify-center mt-2 rounded-lg border border-dashed border-border/60 bg-muted/30">
+          <div className="h-[280px] md:h-[420px] lg:h-[430px] shrink-0 flex flex-col items-center justify-center mt-2 rounded-lg border border-dashed border-border/60 bg-muted/30">
             <p className="text-lg mt-2 text-muted-foreground px-4">
-              Paste documentation into the left panel to get started.
+              Paste documentation into the prompt panel to get started.
             </p>
           </div>
         )}
         {status === "loading" && (
-          <div className="flex flex-col h-[240px] shrink-0 space-y-3">
+          <div className="flex flex-col h-[240px] md:h-[360px] lg:h-[400px] shrink-0 space-y-3">
             <Skeleton className="h-[125px] w-full rounded-xl" />
             <div className="space-y-2">
               <Skeleton className="h-4 w-full" />
@@ -69,14 +70,14 @@ export function OutputPanel({
           </div>
         )}
         {status === "success" && (
-          <div className="h-[240px] shrink-0">
+          <div className="h-[240px] md:h-[360px] lg:h-[400px] shrink-0">
             <ScrollArea className="h-[240px] pr-4 bg-card whitespace-pre-wrap animate-fade-in">
               <MarkdownOutput content={result ?? ""} />
             </ScrollArea>
           </div>
         )}
         {status === "error" && (
-          <div className="h-[240px] shrink-0">
+          <div className="h-[240px] md:h-[360px] lg:h-[400px] shrink-0">
             <Alert variant="destructive">
               <AlertTitle>Unable to generate explanation</AlertTitle>
               <AlertDescription>
@@ -86,39 +87,38 @@ export function OutputPanel({
             </Alert>
           </div>
         )}
-        <Separator className="my-4" />
-        <div className="space-y-4">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              onFollowUp();
-            }}
+        <Separator className="" />
+        <form
+          className="space-y-9 md:space-y-6"
+          onSubmit={(e) => {
+            e.preventDefault();
+            onFollowUp();
+          }}
+        >
+          <Textarea
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            disabled={isFollowUpLoading}
+            placeholder="Ask a follow-up question..."
+            className="h-[100px] md:h-[120px] lg:h-[140px] text-md md:text-lg lg:text-xl overflow-y-auto"
+          />
+          <Button
+            size="lg"
+            disabled={!question || isFollowUpLoading}
+            className="w-full md:text-xl text-md active:scale-95 active:brightness-90 active:translate-y-0.5 transition-all duration-100"
+            type="submit"
           >
-            <Textarea
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-              disabled={isFollowUpLoading}
-              placeholder="Ask a follow-up question..."
-              className="h-[80px] overflow-y-auto"
-            />
-            <Button
-              size="lg"
-              disabled={!question || isFollowUpLoading}
-              className="w-full mt-3 md:text-xl text-md active:scale-95 active:brightness-90 active:translate-y-0.5 transition-all duration-100"
-              type="submit"
-            >
-              {isFollowUpLoading ? "Loading..." : "Ask follow-up"}
-            </Button>
-          </form>
-        </div>
-        <div className="flex-1 min-h-0 bg-card">
+            {isFollowUpLoading ? "Loading..." : "Ask follow-up"}
+          </Button>
+        </form>
+        <div className="flex flex-col flex-1 min-h-0 bg-card">
           {followUpStatus === "success" && (
             <ScrollArea className="h-full mt-3 bg-card">
               <MarkdownRenderer markdown={followUpResult ?? ""} />
             </ScrollArea>
           )}
           {followUpStatus === "error" && (
-            <Alert variant="destructive">
+            <Alert variant="destructive" className="flex-1 min-h-0">
               <AlertTitle>Unable to generate follow-up explanation</AlertTitle>
               <AlertDescription>
                 Something went wrong while processing your follow-up question.
@@ -127,7 +127,7 @@ export function OutputPanel({
             </Alert>
           )}
           {followUpStatus === "loading" && (
-            <div className="flex flex-col h-[240px] space-y-3">
+            <div className="flex flex-col flex-1 min-h-0 space-y-3">
               <Skeleton className="h-[125px] w-full rounded-xl" />
               <div className="space-y-2">
                 <Skeleton className="h-4 w-full" />
@@ -141,7 +141,7 @@ export function OutputPanel({
             </div>
           )}
           {followUpStatus === "idle" && (
-            <div className="h-[240px] mt-3 flex flex-col items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/30">
+            <div className="min-h-[280px] md:min-h-0 mt-3 md:flex-1 flex flex-col items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/30">
               <p className="text-lg mt-2 text-muted-foreground px-4">
                 Paste the explanation into the left panel to get started.
               </p>

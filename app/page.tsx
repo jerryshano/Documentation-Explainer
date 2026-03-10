@@ -76,7 +76,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen w-full max-w-full overflow-x-hidden p-4 md:pb-4 pb-[max(3rem,env(safe-area-inset-bottom))] flex flex-col">
+    <div className="min-h-0 flex-1 w-full max-w-full p-4 md:pb-4 pb-[max(3rem,env(safe-area-inset-bottom))] flex flex-col">
       <MainWorkspace>
         <div className="flex flex-col min-w-0 md:flex-1 md:min-h-0">
           <InputPanel

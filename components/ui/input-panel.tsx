@@ -34,12 +34,12 @@ export default function InputPanel({
 }: InputPanelProps) {
   return (
     <Card className="w-full min-w-0 flex flex-col md:h-full md:min-h-0 bg-white/5 backdrop-blur-sm border border-border/50 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl ">
-      <CardHeader className="pb-2">
-        <CardTitle className="md:text-4xl text-2xl font-bold tracking-tight">
+      <CardHeader className="pb-3">
+        <CardTitle className="md:text-3xl lg:text-4xl text-2xl font-bold tracking-tight">
           Prompt Panel
         </CardTitle>
         <CardDescription className="text-md md:text-2xl font-medium">
-          Paste your text or enter a URL to get started
+          Paste or enter a URL to get started
         </CardDescription>
       </CardHeader>
       <form
@@ -50,23 +50,23 @@ export default function InputPanel({
         }}
       >
         <Separator />
-        <CardContent className="flex flex-col flex-1 min-h-0 overflow-auto space-y-3 md:space-y-6 py-3">
+        <CardContent className="flex flex-col flex-1 min-h-0 overflow-auto space-y-9 md:space-y-6 py-4">
           <Textarea
-            className="flex-1 min-h-0 mt-3 resize-none"
-            placeholder="Paste your text here"
+            className="flex-1 min-h-[45vh] md:min-h-0 mt-3 resize-none text-md md:text-lg lg:text-xl"
+            placeholder="Paste your documentation here"
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
           <Input
             type="url"
-            className="mt-3 text-md md:text-lg"
+            className="text-md md:text-lg"
             placeholder="Enter the URL here"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
           />
-          <Tabs defaultValue="tl:dr" className=" w-full mt-3">
-            <div className="overflow-x-auto -mx-1 px-1">
-              <TabsList className="flex-nowrap">
+          <Tabs defaultValue="tl:dr" className="w-full">
+            <div className="overflow-x-auto -mx-1 px-1 w-full">
+              <TabsList className="flex-nowrap w-full">
                 <TabsTrigger
                   className="text-md md:text-xl font-medium"
                   value="tl:dr"
@@ -79,30 +79,30 @@ export default function InputPanel({
                   value="beginner"
                   onClick={() => setLevel("beginner")}
                 >
-                  <span className="md:hidden">Bginnr</span>
-                  <span className="hidden md:inline">Beginner</span>
+                  <span className="lg:hidden">Bginnr</span>
+                  <span className="hidden lg:inline">Beginner</span>
                 </TabsTrigger>
                 <TabsTrigger
                   className="text-md md:text-xl font-medium"
                   value="intermediate"
                   onClick={() => setLevel("intermediate")}
                 >
-                  <span className="md:hidden">Intrmdiate</span>
-                  <span className="hidden md:inline">Intermediate</span>
+                  <span className="lg:hidden">Intrmed</span>
+                  <span className="hidden lg:inline">Intermediate</span>
                 </TabsTrigger>
                 <TabsTrigger
                   className="text-md md:text-xl font-medium"
                   value="advanced"
                   onClick={() => setLevel("advanced")}
                 >
-                  <span className="md:hidden">Advncd</span>
-                  <span className="hidden md:inline">Advanced</span>
+                  <span className="lg:hidden">Advnced</span>
+                  <span className="hidden lg:inline">Advanced</span>
                 </TabsTrigger>
               </TabsList>
             </div>
           </Tabs>
         </CardContent>
-        <CardFooter className="">
+        <CardFooter className="mt-4">
           <Button
             type="submit"
             size="lg"

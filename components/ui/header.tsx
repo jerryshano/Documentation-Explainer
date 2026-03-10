@@ -23,7 +23,7 @@ export function Header() {
             </span>
           </div>
         </Link>
-        <div className="flex items-center gap-4 md:gap-6 lg:gap-8">
+        <div className="flex items-center gap-6 lg:gap-5">
           <AuthButtons />
           <ModeToggle />
           <Avatar className="size-12 md:size-14 lg:size-16 rounded-lg!">

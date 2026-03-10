@@ -45,7 +45,7 @@ export function OutputPanel({
           </CardTitle>
           <Button
             disabled={status !== "success"}
-            className="shrink-0 md:text-base text-sm active:scale-95 active:brightness-90 active:translate-y-0.5 transition-all duration-100 hover:scale-[1.02] active:scale-[0.98]"
+            className="shrink-0 md:w-20 lg:w-26 text-sm md:text-base lg:text-lg  active:scale-95 active:brightness-90 active:translate-y-0.5 transition-all duration-100 hover:scale-[1.02] active:scale-[0.98]"
             size="sm"
           >
             Copy
@@ -58,7 +58,7 @@ export function OutputPanel({
       <Separator />
       <CardContent className="flex flex-col flex-1 min-h-0 space-y-9 py-2">
         {status === "idle" && (
-          <div className="h-[280px] md:h-[310px] lg:h-[390px] shrink-0 rounded-lg border border-dashed border-border/60 bg-muted/30">
+          <div className="h-[280px] md:h-[310px] lg:h-[330px] shrink-0 rounded-lg border border-dashed border-border/60 bg-muted/30">
             <p className="text-lg mt-2 text-muted-foreground px-4">
               Paste documentation into the prompt panel to the Left to begin
             </p>
@@ -96,7 +96,6 @@ export function OutputPanel({
             </Alert>
           </div>
         )}
-        <Separator className="" />
         <form
           className="space-y-9 md:space-y-6"
           onSubmit={(e) => {
@@ -109,7 +108,7 @@ export function OutputPanel({
             onChange={(e) => setQuestion(e.target.value)}
             disabled={followUpStatus !== "idle" || isFollowUpLoading}
             placeholder="Ask a follow-up question..."
-            className="h-[100px] md:h-[120px] lg:h-[140px] text-md md:text-lg lg:text-xl overflow-y-auto"
+            className="h-[100px] md:h-[120px] lg:h-[121px] text-md md:text-lg lg:text-xl overflow-y-auto"
           />
           <Button
             size="lg"

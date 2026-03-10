@@ -37,7 +37,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Providers>
-            <div className="min-h-screen flex flex-col">
+            <div className="min-h-screen flex flex-col max-w-[1800px] mx-auto">
               <div className="shrink-0">
                 <Header />
               </div>

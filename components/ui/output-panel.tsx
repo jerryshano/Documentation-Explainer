@@ -75,15 +75,18 @@ export function OutputPanel({
               <Skeleton className="h-4 w-5/6" />
               <Skeleton className="h-4 w-2/3" />
               <Skeleton className="h-4 w-4/5" />
+              <Skeleton className="h-4 w-2/3" />
+              {/* <Skeleton className="h-4 w-full" /> */}
+              <Skeleton className="h-4 w-5/6" />
             </div>
           </div>
         )}
         {status === "success" && (
-          <div className="h-[240px] md:h-[360px] lg:h-[400px] shrink-0">
-            <ScrollArea className="h-[240px] pr-4 bg-card whitespace-pre-wrap animate-fade-in">
+          <ScrollArea className="min-w-0 overflow-x-hidden h-[240px] md:h-[360px] lg:h-[400px] shrink-0 pr-4 bg-card whitespace-pre-wrap animate-fade-in">
+            <div className="min-w-0 w-full break-words">
               <MarkdownOutput content={result ?? ""} />
-            </ScrollArea>
-          </div>
+            </div>
+          </ScrollArea>
         )}
         {status === "error" && (
           <div className="h-[240px] md:h-[360px] lg:h-[400px] shrink-0">
@@ -121,8 +124,10 @@ export function OutputPanel({
         </form>
         <div className="flex flex-col flex-1 min-h-0 bg-card">
           {followUpStatus === "success" && (
-            <ScrollArea className="h-full mt-3 bg-card">
-              <MarkdownRenderer markdown={followUpResult ?? ""} />
+            <ScrollArea className="h-full min-w-0 overflow-x-hidden bg-card whitespace-pre-wrap animate-fade-in">
+              <div className="min-w-0 w-full break-words">
+                <MarkdownOutput content={followUpResult ?? ""} />
+              </div>
             </ScrollArea>
           )}
           {followUpStatus === "error" && (
@@ -136,11 +141,8 @@ export function OutputPanel({
           )}
           {followUpStatus === "loading" && (
             <div className="flex flex-col flex-1 min-h-0 space-y-3">
-              <Skeleton className="h-[125px] w-full rounded-xl" />
+              <Skeleton className="h-7 w-full rounded-xl" />
               <div className="space-y-2">
-                <Skeleton className="h-4 w-full" />
-                <Skeleton className="h-4 w-5/6" />
-                <Skeleton className="h-4 w-2/3" />
                 <Skeleton className="h-4 w-full" />
                 <Skeleton className="h-4 w-5/6" />
                 <Skeleton className="h-4 w-2/3" />

@@ -19,13 +19,13 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleExplain = async () => {
+    setIsLoading(true);
     setStatus("loading");
     try {
       const res = await fetch("/api", {
         method: "POST",
         body: JSON.stringify({
           input: input,
-
           level: level,
           mode: "explain",
         }),
@@ -42,6 +42,8 @@ export default function Home() {
     } catch (error) {
       console.error("Error explaining", error);
       setStatus("error");
+    } finally {
+      setIsLoading(false);
     }
   };
 

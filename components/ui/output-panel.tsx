@@ -95,9 +95,9 @@ export function OutputPanel({
           </div>
         )}
         {status === "loading" && (
-          <div className="flex flex-col h-[240px] md:h-[360px] lg:h-[400px] shrink-0 space-y-3">
-            <Skeleton className="h-[125px] w-full rounded-xl" />
-            <div className="space-y-2">
+          <div className="flex flex-col h-[240px] md:h-[360px] lg:h-[400px] min-h-[240px] md:min-h-[360px] lg:min-h-[400px] shrink-0 overflow-hidden space-y-3">
+            <Skeleton className="h-[125px] w-full rounded-xl shrink-0" />
+            <div className="space-y-2 min-h-0 flex-1 overflow-hidden">
               <Skeleton className="h-4 w-full" />
               <Skeleton className="h-4 w-5/6" />
               <Skeleton className="h-4 w-2/3" />
@@ -157,7 +157,7 @@ export function OutputPanel({
             {isFollowUpLoading ? "Loading..." : "Ask follow-up"}
           </Button>
         </form>
-        <div className="flex flex-col flex-1 min-h-0 bg-card">
+        <div className="flex flex-col flex-1 min-h-0 overflow-hidden bg-card">
           {followUpStatus === "success" && (
             <ScrollArea className="h-full min-w-0 overflow-x-hidden bg-card whitespace-pre-wrap animate-fade-in">
               <div className="min-w-0 w-full wrap-break-word">
@@ -166,7 +166,7 @@ export function OutputPanel({
             </ScrollArea>
           )}
           {followUpStatus === "error" && (
-            <Alert variant="destructive" className="flex-1 min-h-0">
+            <Alert variant="destructive" className="flex-1 min-h-0 overflow-hidden">
               <AlertTitle>Unable to generate follow-up explanation</AlertTitle>
               <AlertDescription>
                 Something went wrong while processing your follow-up question.
@@ -175,9 +175,9 @@ export function OutputPanel({
             </Alert>
           )}
           {followUpStatus === "loading" && (
-            <div className="flex flex-col flex-1 min-h-0 space-y-3">
-              <Skeleton className="h-7 w-full rounded-xl" />
-              <div className="space-y-2">
+            <div className="flex flex-col flex-1 min-h-0 overflow-hidden space-y-3">
+              <Skeleton className="h-7 w-full rounded-xl shrink-0" />
+              <div className="space-y-2 min-h-0 flex-1 overflow-hidden">
                 <Skeleton className="h-4 w-full" />
                 <Skeleton className="h-4 w-5/6" />
                 <Skeleton className="h-4 w-2/3" />
@@ -189,7 +189,7 @@ export function OutputPanel({
             </div>
           )}
           {followUpStatus === "idle" && (
-            <div className="min-h-[280px] md:min-h-0 flex-1 rounded-lg border border-dashed border-border/60 bg-muted/30">
+            <div className="min-h-[280px] md:min-h-0 flex-1 overflow-hidden rounded-lg border border-dashed border-border/60 bg-muted/30">
               <p className="text-lg mt-2 text-muted-foreground px-4">
                 Paste the explanation into the left panel to get started.
               </p>

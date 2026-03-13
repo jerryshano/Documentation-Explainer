@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "./alert";
 import { Button } from "./button";
 import {
@@ -118,7 +118,9 @@ export function OutputPanel({
               className="min-w-0 w-full wrap-break-word"
               data-explanation-root
             >
-              {explanationNode}
+              <Suspense fallback={<Skeleton className="h-4 w-full animate-pulse" />}>
+                {explanationNode}
+              </Suspense>
             </div>
           </ScrollArea>
         )}
@@ -160,7 +162,9 @@ export function OutputPanel({
           {followUpStatus === "success" && (
             <ScrollArea className="h-full min-w-0 overflow-x-hidden bg-card whitespace-pre-wrap animate-fade-in">
               <div className="min-w-0 w-full wrap-break-word">
-                {followUpNode}
+                <Suspense fallback={<Skeleton className="h-4 w-full animate-pulse" />}>
+                  {followUpNode}
+                </Suspense>
               </div>
             </ScrollArea>
           )}

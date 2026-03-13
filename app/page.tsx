@@ -1,16 +1,20 @@
 "use client";
+import { useState } from "react";
+
 import { MainWorkspace } from "@/components/main-workspace";
 import InputPanel from "@/components/ui/input-panel";
 import { OutputPanel } from "@/components/ui/output-panel";
-import { useState } from "react";
+import { streamExplainAction } from "./actions";
 import { ExplainStatus, HistoryMessage, Level } from "./types";
 
 export default function Home() {
   const [status, setStatus] = useState<ExplainStatus>("idle");
-  const [result, setResult] = useState<string>("");
+  const [explanationNode, setExplanationNode] = useState<React.ReactNode | null>(null);
+
   const [question, setQuestion] = useState<string>("");
-  const [followUpResult, setFollowUpResult] = useState<string>("");
+  const [followUpNode, setFollowUpNode] = useState<React.ReactNode | null>(null);
   const [followUpStatus, setFollowUpStatus] = useState<ExplainStatus>("idle");
+
   const [history, setHistory] = useState<HistoryMessage[]>([]);
   const [isFollowUpLoading, setIsFollowUpLoading] = useState<boolean>(false);
   const [level, setLevel] = useState<Level>("tl:dr");
@@ -22,25 +26,21 @@ export default function Home() {
     setIsLoading(true);
     setStatus("loading");
     try {
-      const res = await fetch("/api", {
-        method: "POST",
-        body: JSON.stringify({
-          input: input,
-          level: level,
-          mode: "explain",
-        }),
+      const node = await streamExplainAction({
+        input,
+        level,
+        mode: "explain",
+        history,
       });
-      const data = await res.json();
-      setResult(data.result ?? "");
+
+      setExplanationNode(node);
       setHistory([
         ...history,
         { role: "user", content: input ?? "" },
-        { role: "assistant", content: data.result ?? "" },
       ]);
       setStatus("success");
-      console.log("data", data);
     } catch (error) {
-      console.error("Error explaining", error);
+      console.error("Error explaining (streamUI)", error);
       setStatus("error");
     } finally {
       setIsLoading(false);
@@ -51,26 +51,21 @@ export default function Home() {
     setIsFollowUpLoading(true);
     setFollowUpStatus("loading");
     try {
-      const res = await fetch("/api", {
-        method: "POST",
-        body: JSON.stringify({
-          question: question,
-          result: result,
-          mode: "followup",
-          history: history,
-        }),
+      const node = await streamExplainAction({
+        input: question,
+        level,
+        mode: "followup",
+        history,
       });
-      const data = await res.json();
-      setFollowUpResult(data.result ?? "");
+
+      setFollowUpNode(node);
       setHistory([
         ...history,
         { role: "user", content: question ?? "" },
-        { role: "assistant", content: data.result ?? "" },
       ]);
       setFollowUpStatus("success");
-      console.log(data);
     } catch (error) {
-      console.error("Error following up", error);
+      console.error("Error following up (streamUI)", error);
       setFollowUpStatus("error");
     } finally {
       setIsFollowUpLoading(false);
@@ -91,14 +86,14 @@ export default function Home() {
             isLoading={isLoading}
           />
         </div>
-        <div className="flex flex-col min-w-0 md:flex-1 md:min-h-0">
+        <div className="flex flex-col min-w-0 md:flex-1 md:minh-0">
           <OutputPanel
             question={question}
             setQuestion={setQuestion}
             status={status}
-            result={result}
+            explanationNode={explanationNode}
             followUpStatus={followUpStatus}
-            followUpResult={followUpResult}
+            followUpNode={followUpNode}
             isFollowUpLoading={isFollowUpLoading}
             onFollowUp={handleFollowUp}
           />
@@ -107,3 +102,4 @@ export default function Home() {
     </div>
   );
 }
+

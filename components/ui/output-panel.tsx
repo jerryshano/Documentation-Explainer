@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { ExplainRequest } from "@/app/types";
 import { Alert, AlertDescription, AlertTitle } from "./alert";
 import { Button } from "./button";
 import {
@@ -24,28 +23,39 @@ interface OutputPanelProps {
   isFollowUpLoading: boolean;
   onFollowUp: () => void;
   status: "idle" | "loading" | "success" | "error";
-  result: ExplainRequest["result"];
+  explanationNode: React.ReactNode | null;
   followUpStatus: "idle" | "loading" | "success" | "error";
-  followUpResult: ExplainRequest["result"];
+  followUpNode: React.ReactNode | null;
 }
 
 export function OutputPanel({
   question,
   setQuestion,
   status,
-  result,
+  explanationNode,
   followUpStatus,
-  followUpResult,
+  followUpNode,
   isFollowUpLoading,
   onFollowUp,
 }: OutputPanelProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
-    const text = result ?? "";
-    if (!text) return;
+    if (!explanationNode) return;
     try {
-      await navigator.clipboard.writeText(text);
+      // Best-effort: copy the text content from the currently rendered explanation.
+      const container = document.querySelector(
+        "[data-explanation-root]"
+      ) as HTMLElement | null;
+      if (container) {
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(container);
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+        document.execCommand("copy");
+        selection?.removeAllRanges();
+      }
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -96,15 +106,20 @@ export function OutputPanel({
               <Skeleton className="h-4 w-2/3" />
               <Skeleton className="h-4 w-4/5" />
               <Skeleton className="h-4 w-2/3" />
-              {/* <Skeleton className="h-4 w-full" /> */}
+              <Skeleton className="h-4 w-full" />
               <Skeleton className="h-4 w-5/6" />
+              <Skeleton className="h-4 w-4/5" />
+              <Skeleton className="h-4 w-2/3" />
             </div>
           </div>
         )}
         {status === "success" && (
           <ScrollArea className="min-w-0 overflow-x-hidden h-[240px] md:h-[360px] lg:h-[400px] shrink-0 pr-4 bg-card whitespace-pre-wrap animate-fade-in">
-            <div className="min-w-0 w-full wrap-break-word">
-              <MarkdownOutput content={result ?? ""} />
+            <div
+              className="min-w-0 w-full wrap-break-word"
+              data-explanation-root
+            >
+              {explanationNode}
             </div>
           </ScrollArea>
         )}
@@ -146,7 +161,7 @@ export function OutputPanel({
           {followUpStatus === "success" && (
             <ScrollArea className="h-full min-w-0 overflow-x-hidden bg-card whitespace-pre-wrap animate-fade-in">
               <div className="min-w-0 w-full wrap-break-word">
-                <MarkdownOutput content={followUpResult ?? ""} />
+                {followUpNode}
               </div>
             </ScrollArea>
           )}
@@ -164,6 +179,9 @@ export function OutputPanel({
               <Skeleton className="h-7 w-full rounded-xl" />
               <div className="space-y-2">
                 <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-5/6" />
+                <Skeleton className="h-4 w-2/3" />
+                <Skeleton className="h-4 w-4/5" />
                 <Skeleton className="h-4 w-5/6" />
                 <Skeleton className="h-4 w-2/3" />
                 <Skeleton className="h-4 w-4/5" />

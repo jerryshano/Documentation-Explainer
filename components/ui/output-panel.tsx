@@ -14,7 +14,6 @@ import { ScrollArea } from "./scroll-area";
 import { Skeleton } from "./skeleton";
 import { Textarea } from "./textarea";
 import { Separator } from "./separator";
-import { SlButton } from "../shoelace-setup";
 import MarkdownOutput from "../markdown-output";
 
 interface OutputPanelProps {
@@ -70,16 +69,16 @@ export function OutputPanel({
           <CardTitle className="md:text-3xl lg:text-4xl text-2xl font-bold truncate min-w-0">
             Explanation Panel
           </CardTitle>
-          <SlButton
-            variant="default"
-            size="small"
+          <Button
+            variant="secondary"
+            size="sm"
             disabled={status !== "success"}
             type="button"
-            className="shrink-0 lg:w-26 [--sl-button-font-size-small:0.875rem] lg:[--sl-button-font-size-small:1.125rem]"
+            className="shrink-0 lg:w-26"
             onClick={handleCopy}
           >
             {copied ? "Copied!" : "Copy"}
-          </SlButton>
+          </Button>
         </div>
         <CardDescription className="text-md md:text-2xl font-medium">
           Your explanation will appear below

@@ -12,8 +12,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export function AuthButtons() {
   const { data: session, status } = useSession();
-  console.log("session", session);
-  console.log("status", status);
 
   if (status === "loading") {
     return <span>Loading...</span>;

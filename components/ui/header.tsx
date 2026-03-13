@@ -16,7 +16,7 @@ export function Header() {
               alt="logo"
               width={32}
               height={32}
-              style={{ height: "auto" }}
+              style={{ width: 32, height: "auto" }}
             />
             <span className="font-bold bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent hidden md:block text-4xl lg:text-5xl tracking-tight">
               DOCEXPLAINR

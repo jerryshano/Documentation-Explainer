@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/ui/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Providers } from "@/components/providers";
+import { ShoelaceSetup } from "@/components/shoelace-setup";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +37,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <ShoelaceSetup />
           <Providers>
             <div className="min-h-screen flex flex-col max-w-[1800px] mx-auto">
               <div className="shrink-0">

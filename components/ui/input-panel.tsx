@@ -52,7 +52,7 @@ export default function InputPanel({
         <Separator />
         <CardContent className="flex flex-col flex-1 min-h-0 overflow-auto space-y-9 py-8">
           <Textarea
-            className="flex-1 min-h-[45vh] md:min-h-0 resize-none text-md md:text-lg lg:text-xl"
+            className="flex-1 min-h-[45vh] md:min-h-0 resize-none text-md md:text-lg lg:text-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             placeholder="Paste your documentation here"
             value={input}
             onChange={(e) => setInput(e.target.value)}

@@ -1,5 +1,7 @@
+"use client";
+
+import { useState } from "react";
 import { ExplainRequest } from "@/app/types";
-import { MarkdownRenderer } from "../markdown-renderer";
 import { Alert, AlertDescription, AlertTitle } from "./alert";
 import { Button } from "./button";
 import {
@@ -13,6 +15,7 @@ import { ScrollArea } from "./scroll-area";
 import { Skeleton } from "./skeleton";
 import { Textarea } from "./textarea";
 import { Separator } from "./separator";
+import { SlButton } from "../shoelace-setup";
 import MarkdownOutput from "../markdown-output";
 
 interface OutputPanelProps {
@@ -36,6 +39,20 @@ export function OutputPanel({
   isFollowUpLoading,
   onFollowUp,
 }: OutputPanelProps) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    const text = result ?? "";
+    if (!text) return;
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // clipboard API not available or denied
+    }
+  };
+
   return (
     <Card className="w-full min-w-0 md:h-full md:flex md:flex-col md:min-h-0 bg-white/5 backdrop-blur-sm border border-border/50 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl ">
       <CardHeader className="shrink-0 pb-3">
@@ -43,13 +60,16 @@ export function OutputPanel({
           <CardTitle className="md:text-3xl lg:text-4xl text-2xl font-bold truncate min-w-0">
             Explanation Panel
           </CardTitle>
-          <Button
+          <SlButton
+            variant="default"
+            size="small"
             disabled={status !== "success"}
-            className="shrink-0 md:w-20 lg:w-26 text-sm md:text-base lg:text-lg  active:scale-95 active:brightness-90 active:translate-y-0.5 transition-all duration-100 hover:scale-[1.02] active:scale-[0.98]"
-            size="sm"
+            type="button"
+            className="shrink-0 lg:w-26 [--sl-button-font-size-small:0.875rem] lg:[--sl-button-font-size-small:1.125rem]"
+            onClick={handleCopy}
           >
-            Copy
-          </Button>
+            {copied ? "Copied!" : "Copy"}
+          </SlButton>
         </div>
         <CardDescription className="text-md md:text-2xl font-medium">
           Your explanation will appear below
@@ -83,7 +103,7 @@ export function OutputPanel({
         )}
         {status === "success" && (
           <ScrollArea className="min-w-0 overflow-x-hidden h-[240px] md:h-[360px] lg:h-[400px] shrink-0 pr-4 bg-card whitespace-pre-wrap animate-fade-in">
-            <div className="min-w-0 w-full break-words">
+            <div className="min-w-0 w-full wrap-break-word">
               <MarkdownOutput content={result ?? ""} />
             </div>
           </ScrollArea>
@@ -125,7 +145,7 @@ export function OutputPanel({
         <div className="flex flex-col flex-1 min-h-0 bg-card">
           {followUpStatus === "success" && (
             <ScrollArea className="h-full min-w-0 overflow-x-hidden bg-card whitespace-pre-wrap animate-fade-in">
-              <div className="min-w-0 w-full break-words">
+              <div className="min-w-0 w-full wrap-break-word">
                 <MarkdownOutput content={followUpResult ?? ""} />
               </div>
             </ScrollArea>

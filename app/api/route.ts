@@ -35,7 +35,6 @@ export async function POST(req: Request) {
   try {
     // rate limiting
     const identifier = req.headers.get("x-forwarded-for") || "unknown";
-    console.log("identifier", identifier);
     if (!identifier) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -74,11 +73,15 @@ export async function POST(req: Request) {
     });
     console.log("prompt", prompt);
 
+    const systemPrompt =
+      "You are a senior software engineer and technical educator. Your job is to explain technical documentation clearly, accurately, and at the requested depth. Use examples when helpful. Avoid hallucinations.  When showing code examples, always use proper markdown fenced code blocks with language identifiers (e.g., ```javascript const sayHello = () => { console.log('Hello, world!'); }; sayHello(); ```).";
+
     const response = await openai.responses.create({
       model: "gpt-5-nano",
+      instructions: systemPrompt,
       input: prompt,
     });
-
+    console.log("response", response);
     return NextResponse.json<ExplainResponse>({
       result: response.output_text,
     });

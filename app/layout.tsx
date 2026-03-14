@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/ui/header";
+import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Providers } from "@/components/providers";
+import { ShoelaceSetup } from "@/components/shoelace-setup";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,9 +37,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <ShoelaceSetup />
           <Providers>
-            <Header />
-            {children}
+            <div className="min-h-screen flex flex-col max-w-[1800px] mx-auto">
+              <div className="shrink-0">
+                <Header />
+              </div>
+              <div className="flex-1 min-h-0 flex flex-col">{children}</div>
+            </div>
           </Providers>
         </ThemeProvider>
       </body>

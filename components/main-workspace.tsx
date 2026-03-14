@@ -1,6 +1,6 @@
 export function MainWorkspace({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-wrap justify-center items-center gap-6 p-6 w-full max-w-7xl mx-auto h-[calc(100vh-100px)] overflow-hidden min-h-0 *:w-full *:md:w-[calc(50%-12px)]">
+    <div className="flex flex-1 min-h-0 flex-col md:flex-row md:justify-stretch justify-center md:items-stretch gap-8 mx-auto w-full">
       {children}
     </div>
   );

@@ -1,19 +1,18 @@
-'use server';
+"use server";
 
-import { streamUI } from '@ai-sdk/rsc';
-import { openai as aiOpenAI } from '@ai-sdk/openai';
-import { z } from 'zod';
+import { streamUI } from "@ai-sdk/rsc";
+import { openai as aiOpenAI } from "@ai-sdk/openai";
 
-import MarkdownOutput from '@/components/markdown-output';
-import { ExplainRequest, HistoryMessage, Level } from './types';
+import MarkdownOutput from "@/components/markdown-output";
+import { ExplainRequest, HistoryMessage, Level } from "../types";
 
-const model = aiOpenAI('gpt-4o');
+const model = aiOpenAI("gpt-4o");
 
 const levelInstruction: Record<Level, string> = {
-  'tl:dr': 'Explain this in a concise and easy to understand way.',
-  beginner: 'Explain this like I am new to programming.',
-  intermediate: 'Explain this with some technical depth.',
-  advanced: 'Explain this at an expert engineering level.',
+  "tl:dr": "Explain this in a concise and easy to understand way.",
+  beginner: "Explain this like I am new to programming.",
+  intermediate: "Explain this with some technical depth.",
+  advanced: "Explain this at an expert engineering level.",
 };
 
 function buildPrompt({
@@ -24,12 +23,12 @@ function buildPrompt({
 }: {
   input: string;
   level: Level;
-  mode: NonNullable<ExplainRequest['mode']>;
+  mode: NonNullable<ExplainRequest["mode"]>;
   history?: HistoryMessage[];
 }) {
-  const instruction = levelInstruction[level] ?? '';
+  const instruction = levelInstruction[level] ?? "";
 
-  if (mode === 'followup') {
+  if (mode === "followup") {
     // For followups, we rely on the history being passed in.
     // The model will see the prior conversation and the latest user question.
     return history ?? [];
@@ -49,7 +48,7 @@ const systemPrompt =
 export async function streamExplainAction(args: {
   input: string;
   level: Level;
-  mode: NonNullable<ExplainRequest['mode']>;
+  mode: NonNullable<ExplainRequest["mode"]>;
   history?: HistoryMessage[];
 }) {
   const { input, level, mode, history } = args;
@@ -62,7 +61,7 @@ export async function streamExplainAction(args: {
   });
 
   const result =
-    mode === 'followup' && Array.isArray(prompt)
+    mode === "followup" && Array.isArray(prompt)
       ? await streamUI({
           model,
           system: systemPrompt,
@@ -75,10 +74,9 @@ export async function streamExplainAction(args: {
       : await streamUI({
           model,
           system: systemPrompt,
-          prompt: typeof prompt === 'string' ? prompt : '',
+          prompt: typeof prompt === "string" ? prompt : "",
           text: ({ content }) => <MarkdownOutput content={content} />,
         });
 
   return result.value;
 }
-

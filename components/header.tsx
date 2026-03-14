@@ -2,8 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { ModeToggle } from "./mode-toggle";
 import { Avatar } from "@radix-ui/react-avatar";
-import { AvatarFallback, AvatarImage } from "./avatar";
-import { AuthButtons } from "../authbuttons";
+import { AvatarFallback, AvatarImage } from "./ui/avatar";
+import { AuthButtons } from "./authbuttons";
 
 export function Header() {
   return (

@@ -1,20 +1,19 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { Alert, AlertDescription, AlertTitle } from "./alert";
-import { Button } from "./button";
+import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
+import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./card";
-import { ScrollArea } from "./scroll-area";
-import { Skeleton } from "./skeleton";
-import { Textarea } from "./textarea";
-import { Separator } from "./separator";
-import MarkdownOutput from "../markdown-output";
+} from "./ui/card";
+import { ScrollArea } from "./ui/scroll-area";
+import { Skeleton } from "./ui/skeleton";
+import { Textarea } from "./ui/textarea";
+import { Separator } from "./ui/separator";
 
 interface OutputPanelProps {
   question: string;
@@ -70,11 +69,11 @@ export function OutputPanel({
             Explanation Panel
           </CardTitle>
           <Button
-            variant="secondary"
+            variant="outline"
             size="sm"
             disabled={status !== "success"}
-            type="button"
-            className="shrink-0 lg:w-26"
+            type="submit"
+            className="shrink-0 lg:w-26 lg:text-lg text-sm"
             onClick={handleCopy}
           >
             {copied ? "Copied!" : "Copy"}
@@ -118,7 +117,9 @@ export function OutputPanel({
               className="min-w-0 w-full wrap-break-word"
               data-explanation-root
             >
-              <Suspense fallback={<Skeleton className="h-4 w-full animate-pulse" />}>
+              <Suspense
+                fallback={<Skeleton className="h-4 w-full animate-pulse" />}
+              >
                 {explanationNode}
               </Suspense>
             </div>
@@ -158,18 +159,23 @@ export function OutputPanel({
             {isFollowUpLoading ? "Loading..." : "Ask follow-up"}
           </Button>
         </form>
-        <div className="flex flex-col flex-1 min-h-0 overflow-hidden bg-card">
+        <div className="flex flex-col flex-1 min-h-0 overflow-hidden bg-card max-h-[240px] md:max-h-[360px] lg:max-h-[400px]">
           {followUpStatus === "success" && (
-            <ScrollArea className="h-full min-w-0 overflow-x-hidden bg-card whitespace-pre-wrap animate-fade-in">
+            <ScrollArea className="h-full min-w-0 overflow-x-hidden bg-card whitespace-pre-wrap animate-fade-in max-h-[240px] md:max-h-[360px] lg:max-h-[400px]">
               <div className="min-w-0 w-full wrap-break-word">
-                <Suspense fallback={<Skeleton className="h-4 w-full animate-pulse" />}>
+                <Suspense
+                  fallback={<Skeleton className="h-4 w-full animate-pulse" />}
+                >
                   {followUpNode}
                 </Suspense>
               </div>
             </ScrollArea>
           )}
           {followUpStatus === "error" && (
-            <Alert variant="destructive" className="flex-1 min-h-0 overflow-hidden">
+            <Alert
+              variant="destructive"
+              className="flex-1 min-h-0 overflow-hidden"
+            >
               <AlertTitle>Unable to generate follow-up explanation</AlertTitle>
               <AlertDescription>
                 Something went wrong while processing your follow-up question.

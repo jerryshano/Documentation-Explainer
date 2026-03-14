@@ -6,12 +6,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Tabs, TabsList, TabsTrigger } from "./tabs";
-import { Textarea } from "./textarea";
-import { Input } from "./input";
-import { Button } from "./button";
+import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
+import { Textarea } from "./ui/textarea";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 import { Level } from "@/app/types";
-import { Separator } from "./separator";
+import { Separator } from "./ui/separator";
 
 interface InputPanelProps {
   onExplain: () => void;

@@ -2,17 +2,20 @@
 import { useState } from "react";
 
 import { MainWorkspace } from "@/components/main-workspace";
-import InputPanel from "@/components/ui/input-panel";
-import { OutputPanel } from "@/components/ui/output-panel";
-import { streamExplainAction } from "./actions";
+import InputPanel from "@/components/input-panel";
+import { OutputPanel } from "@/components/output-panel";
+import { streamExplainAction } from "./api/actions";
 import { ExplainStatus, HistoryMessage, Level } from "./types";
 
 export default function Home() {
   const [status, setStatus] = useState<ExplainStatus>("idle");
-  const [explanationNode, setExplanationNode] = useState<React.ReactNode | null>(null);
+  const [explanationNode, setExplanationNode] =
+    useState<React.ReactNode | null>(null);
 
   const [question, setQuestion] = useState<string>("");
-  const [followUpNode, setFollowUpNode] = useState<React.ReactNode | null>(null);
+  const [followUpNode, setFollowUpNode] = useState<React.ReactNode | null>(
+    null
+  );
   const [followUpStatus, setFollowUpStatus] = useState<ExplainStatus>("idle");
 
   const [history, setHistory] = useState<HistoryMessage[]>([]);
@@ -34,10 +37,7 @@ export default function Home() {
       });
 
       setExplanationNode(node);
-      setHistory([
-        ...history,
-        { role: "user", content: input ?? "" },
-      ]);
+      setHistory([...history, { role: "user", content: input ?? "" }]);
       setStatus("success");
     } catch (error) {
       console.error("Error explaining (streamUI)", error);
@@ -59,10 +59,7 @@ export default function Home() {
       });
 
       setFollowUpNode(node);
-      setHistory([
-        ...history,
-        { role: "user", content: question ?? "" },
-      ]);
+      setHistory([...history, { role: "user", content: question ?? "" }]);
       setFollowUpStatus("success");
     } catch (error) {
       console.error("Error following up (streamUI)", error);
@@ -102,4 +99,3 @@ export default function Home() {
     </div>
   );
 }
-

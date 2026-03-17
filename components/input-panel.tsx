@@ -59,13 +59,6 @@ export default function InputPanel({
               onChange={(e) => setInput(e.target.value)}
             />
           </div>
-          <Input
-            type="url"
-            className="text-md md:text-lg"
-            placeholder="Enter the URL here"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-          />
           <Tabs defaultValue="tl:dr" className="w-full">
             <div className="overflow-x-auto -mx-1 px-1 w-full">
               <TabsList className="flex-nowrap w-full">

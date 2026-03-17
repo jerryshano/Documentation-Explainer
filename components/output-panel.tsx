@@ -114,7 +114,7 @@ export function OutputPanel({
         {status === "success" && (
           <ScrollArea className="min-w-0 overflow-x-hidden h-[240px] md:h-[360px] lg:h-[400px] shrink-0 pr-4 bg-card whitespace-pre-wrap animate-fade-in">
             <div
-              className="min-w-0 w-full wrap-break-word"
+              className="min-w-0 w-full wrap-break-word md:text-lg lg:text-xl"
               data-explanation-root
             >
               <Suspense
@@ -162,7 +162,7 @@ export function OutputPanel({
         <div className="flex flex-col flex-1 min-h-0 overflow-hidden bg-card max-h-[240px] md:max-h-[360px] lg:max-h-[400px]">
           {followUpStatus === "success" && (
             <ScrollArea className="h-full min-w-0 overflow-x-hidden bg-card whitespace-pre-wrap animate-fade-in max-h-[240px] md:max-h-[360px] lg:max-h-[400px]">
-              <div className="min-w-0 w-full wrap-break-word">
+              <div className="min-w-0 w-full wrap-break-word md:text-lg lg:text-xl">
                 <Suspense
                   fallback={<Skeleton className="h-4 w-full animate-pulse" />}
                 >

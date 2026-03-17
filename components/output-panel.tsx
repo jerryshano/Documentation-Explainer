@@ -152,7 +152,7 @@ export function OutputPanel({
           />
           <Button
             size="lg"
-            disabled={!question || isFollowUpLoading}
+            disabled={status !== "success" || isFollowUpLoading}
             className="w-full md:text-xl text-md active:scale-95 active:brightness-90 active:translate-y-0.5 transition-all duration-100"
             type="submit"
           >

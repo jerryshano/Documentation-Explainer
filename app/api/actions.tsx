@@ -6,7 +6,7 @@ import { openai as aiOpenAI } from "@ai-sdk/openai";
 import MarkdownOutput from "@/components/markdown-output";
 import { ExplainRequest, HistoryMessage, Level } from "../types";
 
-const model = aiOpenAI("gpt-4o");
+const model = aiOpenAI("gpt-5-nano");
 
 const levelInstruction: Record<Level, string> = {
   "tl:dr": "Explain this in a concise and easy to understand way.",

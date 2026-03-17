@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
 import { Textarea } from "./ui/textarea";
-import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Level } from "@/app/types";
 import { Separator } from "./ui/separator";
@@ -17,8 +16,6 @@ interface InputPanelProps {
   onExplain: () => void;
   input: string;
   setInput: (input: string) => void;
-  url: string;
-  setUrl: (url: string) => void;
   setLevel: (level: Level) => void;
   isLoading: boolean;
 }
@@ -27,8 +24,6 @@ export default function InputPanel({
   onExplain,
   input,
   setInput,
-  url,
-  setUrl,
   setLevel,
   isLoading,
 }: InputPanelProps) {

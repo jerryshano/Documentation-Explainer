@@ -22,7 +22,6 @@ export default function Home() {
   const [isFollowUpLoading, setIsFollowUpLoading] = useState<boolean>(false);
   const [level, setLevel] = useState<Level>("tl:dr");
   const [input, setInput] = useState<string>("");
-  const [url, setUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleExplain = async () => {
@@ -77,8 +76,6 @@ export default function Home() {
             onExplain={handleExplain}
             input={input}
             setInput={setInput}
-            url={url}
-            setUrl={setUrl}
             setLevel={setLevel}
             isLoading={isLoading}
           />

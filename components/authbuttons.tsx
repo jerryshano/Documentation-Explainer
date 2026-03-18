@@ -50,7 +50,7 @@ export function AuthButtons() {
 
   return (
     <Button
-      className="h-12 w-17 md:w-24 lg:w-28 md:h-14 lg:h-16 rounded-xl text-lg md:text-xl lg:text-2xl lg:font-normal md:font-bold font-medium"
+      className="h-12 w-17 md:w-24 lg:w-25 md:h-14 lg:h-16 rounded-xl text-lg md:text-xl lg:text-2xl lg:font-normal md:font-bold font-medium"
       type="button"
       onClick={() => signIn()}
     >

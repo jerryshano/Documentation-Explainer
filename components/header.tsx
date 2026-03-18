@@ -7,7 +7,7 @@ import { AuthButtons } from "./authbuttons";
 
 export function Header() {
   return (
-    <header className="bg-secondary border">
+    <header className="bg-background border">
       <div className="flex items-center justify-between py-3 px-4">
         <Link href="/">
           <div className="flex items-center gap-2">

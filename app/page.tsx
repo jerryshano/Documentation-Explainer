@@ -50,15 +50,19 @@ export default function Home() {
     setIsFollowUpLoading(true);
     setFollowUpStatus("loading");
     try {
+      const nextHistory: HistoryMessage[] = [
+        ...history,
+        { role: "user", content: question ?? "" },
+      ];
       const node = await streamExplainAction({
         input: question,
         level,
         mode: "followup",
-        history,
+        history: nextHistory,
       });
 
       setFollowUpNode(node);
-      setHistory([...history, { role: "user", content: question ?? "" }]);
+      setHistory(nextHistory);
       setFollowUpStatus("success");
     } catch (error) {
       console.error("Error following up (streamUI)", error);

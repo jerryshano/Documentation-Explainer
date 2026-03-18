@@ -29,9 +29,13 @@ function buildPrompt({
   const instruction = levelInstruction[level] ?? "";
 
   if (mode === "followup") {
-    // For followups, we rely on the history being passed in.
-    // The model will see the prior conversation and the latest user question.
-    return history ?? [];
+    // For followups, send prior context plus the latest question.
+    // Also include the level instruction so followups keep the same depth.
+    return [
+      ...(instruction ? [{ role: "user" as const, content: instruction }] : []),
+      ...(history ?? []),
+      { role: "user" as const, content: input },
+    ];
   }
 
   return `

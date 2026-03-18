@@ -26,7 +26,7 @@ export function Header() {
         <div className="flex items-center gap-6 lg:gap-5">
           <AuthButtons />
           <ModeToggle />
-          <Avatar className="size-12 md:size-14 lg:size-16 rounded-lg!">
+          <Avatar className="size-12 md:size-14 rounded-lg!">
             <Link href="https://github.com/jerryshano" target="_blank">
               <AvatarImage src="/github.jpg" className="rounded-lg" />
               <AvatarFallback className="rounded-lg">CN</AvatarFallback>

@@ -88,7 +88,7 @@ export function OutputPanel({
         {status === "idle" && (
           <div className="h-[280px] md:h-[310px] lg:h-[330px] shrink-0 rounded-lg border border-dashed border-border/60 bg-muted/30">
             <p className="text-lg mt-2 text-muted-foreground px-4">
-              Paste documentation into the prompt panel to the Left to begin
+              Paste documentation into the prompt panel to begin
             </p>
           </div>
         )}
@@ -200,7 +200,7 @@ export function OutputPanel({
           {followUpStatus === "idle" && (
             <div className="min-h-[280px] md:min-h-0 flex-1 overflow-hidden rounded-lg border border-dashed border-border/60 bg-muted/30">
               <p className="text-lg mt-2 text-muted-foreground px-4">
-                Paste the explanation into the left panel to get started.
+                Paste the explanation into the prompt panel to get started.
               </p>
             </div>
           )}

@@ -5,6 +5,7 @@ import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Providers } from "@/components/providers";
 import { ShoelaceSetup } from "@/components/shoelace-setup";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,7 +44,9 @@ export default function RootLayout({
               <div className="shrink-0">
                 <Header />
               </div>
-              <div className="flex-1 min-h-0 flex flex-col">{children}</div>
+              <TooltipProvider>
+                <div className="flex-1 min-h-0 flex flex-col">{children}</div>
+              </TooltipProvider>
             </div>
           </Providers>
         </ThemeProvider>

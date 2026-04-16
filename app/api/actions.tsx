@@ -2,6 +2,7 @@
 
 import { streamUI } from "@ai-sdk/rsc";
 import { openai as aiOpenAI } from "@ai-sdk/openai";
+import { generateText } from "ai";
 
 import MarkdownOutput from "@/components/markdown-output";
 import { ExplainRequest, HistoryMessage, Level } from "../types";
@@ -63,8 +64,8 @@ export async function streamExplainAction(args: {
     mode,
     history,
   });
-
-  const result =
+  // 1️⃣ STREAM UI (existing)
+  const uiResult =
     mode === "followup" && Array.isArray(prompt)
       ? await streamUI({
           model,
@@ -82,5 +83,18 @@ export async function streamExplainAction(args: {
           text: ({ content }) => <MarkdownOutput content={content} />,
         });
 
-  return result.value;
+  // 2️⃣ GET FULL TEXT (NEW)
+  const textResult = await generateText({
+    model,
+    system: systemPrompt,
+    prompt:
+      typeof prompt === "string"
+        ? prompt
+        : prompt.map((m) => m.content).join("\n"),
+  });
+
+  return {
+    node: uiResult.value,
+    text: textResult.text,
+  };
 }

@@ -1,4 +1,12 @@
+import type { ReactNode } from "react";
+
 export type Level = "tl:dr" | "beginner" | "intermediate" | "advanced";
+
+export type ChatHistory = {
+  id: string;
+  prompt: string;
+  response: string;
+};
 
 export type ExplainRequest = {
   input?: string;

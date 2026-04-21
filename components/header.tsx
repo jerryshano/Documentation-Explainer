@@ -27,28 +27,30 @@ export function Header() {
   return (
     <header className="bg-background border">
       <div className="flex items-center justify-between py-3 px-4">
-        <div className="md:hidden">
-          <SidebarTrigger
-            variant="outline"
-            className="h-12 w-12 md:h-14 md:w-14 shrink-0 rounded-xl [&_svg]:size-6"
-          />
-        </div>
-        <Link href="/">
-          <div className="flex items-center gap-2">
-            <Image
-              key={logoSrc}
-              src={logoSrc}
-              alt="logo"
-              width={46}
-              height={46}
-              className="h-12 w-12 md:h-12 md:w-12 object-contain rounded-xl"
+        <div className="flex items-center gap-3">
+          <div className="md:hidden">
+            <SidebarTrigger
+              variant="outline"
+              className="h-13 w-13 shrink-0 rounded-xl [&_svg]:size-6"
             />
-            <span className="font-bold bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent hidden md:block text-4xl lg:text-5xl tracking-tight">
-              DOCEXPLAINR
-            </span>
           </div>
-        </Link>
-        <div className="flex items-center gap-6 lg:gap-5">
+          <Link href="/">
+            <div className="flex items-center gap-2">
+              <Image
+                key={logoSrc}
+                src={logoSrc}
+                alt="logo"
+                width={46}
+                height={46}
+                className="h-12 w-12 md:h-12 md:w-12 object-contain rounded-xl"
+              />
+              <span className="font-bold bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent hidden md:block text-4xl lg:text-5xl tracking-tight">
+                DOCEXPLAINR
+              </span>
+            </div>
+          </Link>
+        </div>
+        <div className="flex items-center gap-4 lg:gap-5">
           <AuthButtons />
           <ModeToggle />
           <Avatar className="size-12 md:size-14 rounded-lg!">

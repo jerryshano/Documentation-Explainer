@@ -6,7 +6,6 @@ import InputPanel from "@/components/input-panel";
 import { OutputPanel } from "@/components/output-panel";
 import { streamExplainAction } from "./api/actions";
 import { ExplainStatus, HistoryMessage, Level } from "./types";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 
 export default function Home() {
@@ -106,15 +105,12 @@ export default function Home() {
 
   return (
     <div className="min-h-0 flex-1 w-full max-w-full p-4 md:pb-4 pb-[max(3rem,env(safe-area-inset-bottom))] flex flex-col">
-      <SidebarProvider className="flex min-h-0 flex-1 flex-col">
+      <div className="flex min-h-0 flex-1 flex-col">
         <MainWorkspace>
           <div className="flex min-h-0 min-w-0 flex-col md:h-full">
             <AppSidebar />
           </div>
           <div className="flex min-h-0 min-w-0 flex-col md:h-full">
-            <div className="flex shrink-0 pb-2 md:hidden">
-              <SidebarTrigger />
-            </div>
             <InputPanel
               onExplain={handleExplain}
               input={input}
@@ -136,7 +132,7 @@ export default function Home() {
             />
           </div>
         </MainWorkspace>
-      </SidebarProvider>
+      </div>
     </div>
   );
 }

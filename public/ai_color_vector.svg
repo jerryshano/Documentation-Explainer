@@ -1,0 +1,27 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient -->
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded border (tight to edges) -->
+  <rect x="4" y="4" width="92" height="92" rx="18"
+        fill="none" stroke="url(#grad)" stroke-width="8"/>
+
+  <!-- AI text -->
+  <text x="28" y="62"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="36"
+        font-weight="bold"
+        fill="url(#grad)">AI</text>
+
+  <!-- Sparkles -->
+  <polygon points="72,20 75,28 83,31 75,34 72,42 69,34 61,31 69,28"
+           fill="url(#grad)"/>
+  <polygon points="84,36 86,41 91,43 86,45 84,50 82,45 77,43 82,41"
+           fill="url(#grad)"/>
+</svg>
